@@ -11,8 +11,8 @@
 namespace Zpr.Fer.Hr.Lumen {
     
     
-    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("C:\\Users\\Matija Puzjak\\Source\\Repos\\Lumen-Xam\\Zpr.Fer.Hr.Lumen\\Zpr.Fer.Hr.Lumen\\Z" +
-        "pr.Fer.Hr.Lumen\\MainPage.xaml")]
+    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("D:\\Programming\\Projekt\\Lumen-Xam\\Zpr.Fer.Hr.Lumen\\Zpr.Fer.Hr.Lumen\\Zpr.Fer.Hr.Lum" +
+        "en\\MainPage.xaml")]
     public partial class MainPage : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
