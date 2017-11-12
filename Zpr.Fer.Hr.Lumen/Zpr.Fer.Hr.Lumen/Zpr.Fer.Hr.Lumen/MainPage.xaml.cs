@@ -16,7 +16,8 @@ namespace Zpr.Fer.Hr.Lumen
 
         private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
         {
-
+            //Slovo.TranslateTo(e.TotalX, e.TotalY);
+            Slovo.Layout(new Rectangle(Slovo.X + e.TotalX, Slovo.Y + e.TotalY, Slovo.Width, Slovo.Height));
         }
     }
 }

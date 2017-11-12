@@ -4,8 +4,10 @@
              xmlns:local="clr-namespace:Zpr.Fer.Hr.Lumen"
              x:Class="Zpr.Fer.Hr.Lumen.MainPage">
 
-    <Image Source="A.png">
-
+    <Image Source="A.png"  x:Name="Slovo">
+        <Image.GestureRecognizers>
+            <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"/>
+        </Image.GestureRecognizers>
     </Image>
 
 </ContentPage>
