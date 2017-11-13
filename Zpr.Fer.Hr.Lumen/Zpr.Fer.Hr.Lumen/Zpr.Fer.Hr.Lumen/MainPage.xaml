@@ -4,10 +4,44 @@
              xmlns:local="clr-namespace:Zpr.Fer.Hr.Lumen"
              x:Class="Zpr.Fer.Hr.Lumen.MainPage">
 
-    <Image Source="A.png"  x:Name="Slovo">
-        <Image.GestureRecognizers>
-            <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"/>
-        </Image.GestureRecognizers>
-    </Image>
+    <Grid x:Name="GridLayout" IsClippedToBounds="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
 
+        <BoxView x:Name="Box1" Grid.Row="1" Grid.Column="1" Color="Blue"/>
+        <BoxView x:Name="Box2" Grid.Row="1" Grid.Column="2" Color="Red"/>
+        <BoxView x:Name="Box3" Grid.Row="1" Grid.Column="3" Color="AliceBlue"/>
+        <BoxView x:Name="Box4" Grid.Row="1" Grid.Column="4" Color="Beige"/>
+        <BoxView x:Name="Box5" Grid.Row="1" Grid.Column="5" Color="Chocolate"/>
+
+        <Image Source="A.png" x:Name="Slovo" 
+           WidthRequest="10" 
+           HeightRequest="10" 
+           Grid.Row="3" 
+           Grid.Column="2">
+            <Image.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"/>
+            </Image.GestureRecognizers>
+        </Image>
+
+    </Grid>
+
+    
+
+    
+    
 </ContentPage>
