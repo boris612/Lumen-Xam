@@ -22,11 +22,36 @@
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
 
-        <BoxView x:Name="Box1" Grid.Row="1" Grid.Column="1" Color="Blue"/>
-        <BoxView x:Name="Box2" Grid.Row="1" Grid.Column="2" Color="Red"/>
-        <BoxView x:Name="Box3" Grid.Row="1" Grid.Column="3" Color="AliceBlue"/>
-        <BoxView x:Name="Box4" Grid.Row="1" Grid.Column="4" Color="Beige"/>
-        <BoxView x:Name="Box5" Grid.Row="1" Grid.Column="5" Color="Chocolate"/>
+        <BoxView x:Name="Box1" Grid.Row="1" Grid.Column="1" Color="Yellow">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <BoxView x:Name="Box2" Grid.Row="1" Grid.Column="2" Color="Yellow">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <BoxView x:Name="Box3" Grid.Row="1" Grid.Column="3" Color="Yellow">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <BoxView x:Name="Box4" Grid.Row="1" Grid.Column="4" Color="Yellow">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <BoxView x:Name="Box5" Grid.Row="1" Grid.Column="5" Color="Yellow">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <BoxView x:Name="Box6" Grid.Row="3" Grid.Column="2" Color="AliceBlue">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
 
         <Image Source="A.png" x:Name="Slovo" 
            WidthRequest="10" 
@@ -34,7 +59,8 @@
            Grid.Row="3" 
            Grid.Column="2">
             <Image.GestureRecognizers>
-                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"/>
+                <!--<PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" x:Name="test"/>-->
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
             </Image.GestureRecognizers>
         </Image>
 
