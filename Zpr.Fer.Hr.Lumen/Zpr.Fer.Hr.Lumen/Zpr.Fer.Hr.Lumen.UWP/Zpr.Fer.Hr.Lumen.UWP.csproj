@@ -109,6 +109,15 @@
     <None Include="Zpr.Fer.Hr.Lumen.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="A.png" />
+    <Content Include="B.png" />
+    <Content Include="C.png" />
+    <Content Include="D.png" />
+    <Content Include="E.png" />
+    <Content Include="F.png" />
+    <Content Include="G.png" />
+    <Content Include="gol.jpg" />
+    <Content Include="H.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-100.png" />
     <Content Include="Assets\LockScreenLogo.scale-125.png" />

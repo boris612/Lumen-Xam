@@ -4,8 +4,46 @@
              xmlns:local="clr-namespace:Zpr.Fer.Hr.Lumen"
              x:Class="Zpr.Fer.Hr.Lumen.MainPage">
 
-	<Label Text="Welcome to Xamarin Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*" />
+                <RowDefinition Height="20*" />
+                <RowDefinition Height="40*" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Grid.Row="0" >
+                <Grid>
+                    <Image Source="gol.jpg" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
+                </Grid>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="EndAndExpand" Grid.Row="1" >
+                <Grid>
+                    <Image Source="A.png" Grid.Row="0" Grid.Column="0" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
+                    <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="Red"  Margin="5" ></BoxView>
+                    <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="Red"  Margin="5" ></BoxView>
+                    <Image Source="D.png" Grid.Row="0" Grid.Column="3" Margin="5" ></Image>
+                    <BoxView Grid.Row="0" Grid.Column="4" BackgroundColor="Red" Margin="5" ></BoxView>
+                    <BoxView Grid.Row="0" Grid.Column="5" BackgroundColor="Red"  Margin="5" ></BoxView>
+                </Grid>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="End" Grid.Row="2" >
+                <!-- bottom controls -->
+
+                <Grid Margin="3" Padding="3">
+                    <!-- <Image Source="A.png" Grid.Row="0" Grid.Column="0" Margin="5" HorizontalOptions="CenterAndExpand"></Image> -->
+                    <Image Source="B.png" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
+                    <Image Source="C.png" Grid.Row="0" Grid.Column="2" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
+                    <!-- <Image Source="D.png" Grid.Row="0" Grid.Column="3" Margin="5" HorizontalOptions="CenterAndExpand"></Image> -->
+                    <Image Source="E.png" Grid.Row="0" Grid.Column="4" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
+                    <Image Source="F.png" Grid.Row="0" Grid.Column="5" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
+                    <Image Source="G.png" Grid.Row="1" Grid.Column="0" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
+                    <Image Source="H.png" Grid.Row="1" Grid.Column="1" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
 
 </ContentPage>
