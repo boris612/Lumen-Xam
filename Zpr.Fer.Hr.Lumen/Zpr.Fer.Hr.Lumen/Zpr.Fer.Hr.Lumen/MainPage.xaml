@@ -59,15 +59,8 @@
            Grid.Row="3" 
            Grid.Column="2">
             <Image.GestureRecognizers>
-                <!--<PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" x:Name="test"/>-->
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
             </Image.GestureRecognizers>
         </Image>
-
     </Grid>
-
-    
-
-    
-    
 </ContentPage>
