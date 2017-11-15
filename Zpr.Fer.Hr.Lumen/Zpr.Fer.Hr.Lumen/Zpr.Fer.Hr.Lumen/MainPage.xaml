@@ -20,12 +20,36 @@
 
             <StackLayout VerticalOptions="EndAndExpand" Grid.Row="1" >
                 <Grid>
-                    <Image Source="A.png" Grid.Row="0" Grid.Column="0" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
-                    <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="Red"  Margin="5" ></BoxView>
-                    <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="Red"  Margin="5" ></BoxView>
-                    <Image Source="D.png" Grid.Row="0" Grid.Column="3" Margin="5" ></Image>
-                    <BoxView Grid.Row="0" Grid.Column="4" BackgroundColor="Red" Margin="5" ></BoxView>
-                    <BoxView Grid.Row="0" Grid.Column="5" BackgroundColor="Red"  Margin="5" ></BoxView>
+                    <Image Source="A.png" Grid.Row="0" Grid.Column="0" Margin="5" HorizontalOptions="CenterAndExpand">
+						<Image.GestureRecognizers>
+							<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+						</Image.GestureRecognizers>
+					</Image>
+                    <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="Red"  Margin="5" >
+						<BoxView.GestureRecognizers>
+							<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+						</BoxView.GestureRecognizers>
+					</BoxView>
+                    <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="Red"  Margin="5" >
+						<BoxView.GestureRecognizers>
+							<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+						</BoxView.GestureRecognizers>
+					</BoxView>
+                    <Image Source="D.png" Grid.Row="0" Grid.Column="3" Margin="5" >
+						<Image.GestureRecognizers>
+							<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+						</Image.GestureRecognizers>
+					</Image>
+                    <BoxView Grid.Row="0" Grid.Column="4" BackgroundColor="Red" Margin="5" >
+						<BoxView.GestureRecognizers>
+							<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+						</BoxView.GestureRecognizers>
+					</BoxView>
+                    <BoxView Grid.Row="0" Grid.Column="5" BackgroundColor="Red"  Margin="5" >
+						<BoxView.GestureRecognizers>
+							<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+						</BoxView.GestureRecognizers>
+					</BoxView>
                 </Grid>
             </StackLayout>
 
@@ -34,16 +58,39 @@
 
                 <Grid Margin="3" Padding="3">
                     <!-- <Image Source="A.png" Grid.Row="0" Grid.Column="0" Margin="5" HorizontalOptions="CenterAndExpand"></Image> -->
-                    <Image Source="B.png" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
-                    <Image Source="C.png" Grid.Row="0" Grid.Column="2" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
+                    <Image Source="B.png" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalOptions="CenterAndExpand">
+						<Image.GestureRecognizers>
+							<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+						</Image.GestureRecognizers>
+					</Image>
+                    <Image Source="C.png" Grid.Row="0" Grid.Column="2" Margin="5" HorizontalOptions="CenterAndExpand">
+						<Image.GestureRecognizers>
+							<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+						</Image.GestureRecognizers>
+					</Image>
                     <!-- <Image Source="D.png" Grid.Row="0" Grid.Column="3" Margin="5" HorizontalOptions="CenterAndExpand"></Image> -->
-                    <Image Source="E.png" Grid.Row="0" Grid.Column="4" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
-                    <Image Source="F.png" Grid.Row="0" Grid.Column="5" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
-                    <Image Source="G.png" Grid.Row="1" Grid.Column="0" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
-                    <Image Source="H.png" Grid.Row="1" Grid.Column="1" Margin="5" HorizontalOptions="CenterAndExpand"></Image>
+                    <Image Source="E.png" Grid.Row="0" Grid.Column="4" Margin="5" HorizontalOptions="CenterAndExpand">
+						<Image.GestureRecognizers>
+							<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+						</Image.GestureRecognizers>
+					</Image>
+                    <Image Source="F.png" Grid.Row="0" Grid.Column="5" Margin="5" HorizontalOptions="CenterAndExpand">
+						<Image.GestureRecognizers>
+							<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+						</Image.GestureRecognizers>
+					</Image>
+                    <Image Source="G.png" Grid.Row="1" Grid.Column="0" Margin="5" HorizontalOptions="CenterAndExpand">
+						<Image.GestureRecognizers>
+							<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+						</Image.GestureRecognizers>
+					</Image>
+                    <Image Source="H.png" Grid.Row="1" Grid.Column="1" Margin="5" HorizontalOptions="CenterAndExpand">
+						<Image.GestureRecognizers>
+							<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+						</Image.GestureRecognizers>
+					</Image>
                 </Grid>
             </StackLayout>
         </Grid>
     </ContentPage.Content>
-
 </ContentPage>
