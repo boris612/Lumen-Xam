@@ -17,9 +17,32 @@ namespace Zpr.Fer.Hr.Lumen
             InitializeComponent();
             _boxViewEmpty = new Dictionary<BoxView, bool>
             {
+                {Box1, false },
+                {Box2, true },
+                {Box3, true },
+                {Box4, false },
+                {Box5, true },
+                {Box6, true },
+                {Box7, false },
+                {Box8, false },
+                {Box9, true },
+                {Box10, false },
+                {Box11, true },
+                {Box12, true },
+                {Box13, false },
+                {Box14, false },
+                {Box15, false }
             };
             _boxViewForImage = new Dictionary<Image, BoxView>
             {
+                {LetterA, Box1 },
+                {LetterD, Box4 },
+                {LetterB, Box7 },
+                {LetterC, Box8 },
+                {LetterE, Box10 },
+                {LetterF, Box15 },
+                {LetterG, Box13 },
+                {LetterH, Box14 }
             };
         }
 
