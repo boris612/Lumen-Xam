@@ -17,32 +17,32 @@ namespace Zpr.Fer.Hr.Lumen
             InitializeComponent();
             _boxViewEmpty = new Dictionary<BoxView, bool>
             {
-                {Box1, false },
+                {Box1, true },
                 {Box2, true },
                 {Box3, true },
-                {Box4, false },
+                {Box4, true },
                 {Box5, true },
                 {Box6, true },
-                {Box7, false },
+                {Box7, true },
                 {Box8, false },
-                {Box9, true },
+                {Box9, false },
                 {Box10, false },
-                {Box11, true },
-                {Box12, true },
+                {Box11, false },
+                {Box12, false },
                 {Box13, false },
                 {Box14, false },
                 {Box15, false }
             };
             _boxViewForImage = new Dictionary<Image, BoxView>
             {
-                {LetterA, Box1 },
-                {LetterD, Box4 },
-                {LetterB, Box7 },
-                {LetterC, Box8 },
-                {LetterE, Box10 },
-                {LetterF, Box15 },
-                {LetterG, Box13 },
-                {LetterH, Box14 }
+                {LetterA, Box8 },
+                {LetterD, Box11 },
+                {LetterB, Box9 },
+                {LetterC, Box10 },
+                {LetterE, Box12 },
+                {LetterF, Box13 },
+                {LetterG, Box14 },
+                {LetterH, Box15 }
             };
         }
 
@@ -55,6 +55,7 @@ namespace Zpr.Fer.Hr.Lumen
                 {
 					_image.TranslateTo(boxView.X - _image.X, boxView.Y - _image.Y);
                     _boxViewEmpty[_boxViewForImage[_image]] = true;
+                    DisplayAlert("alert", _boxViewEmpty[_boxViewForImage[_image]] ? "true": "false", "OK");
                     _boxViewForImage.Remove(_image);
                     _boxViewForImage.Add(_image, boxView);
                     _boxViewEmpty[boxView] = false;
