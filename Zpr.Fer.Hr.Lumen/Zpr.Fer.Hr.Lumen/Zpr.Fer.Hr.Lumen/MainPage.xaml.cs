@@ -11,6 +11,7 @@ namespace Zpr.Fer.Hr.Lumen
     {
         private static Dictionary<BoxView, bool> _boxViewEmpty;
         private static Dictionary<Image, BoxView> _boxViewForImage;
+        private static List<BoxView> _wordBoxViews;
         private static Image _image;
         public MainPage()
         {
@@ -44,6 +45,11 @@ namespace Zpr.Fer.Hr.Lumen
                 {LetterG, Box14 },
                 {LetterH, Box15 }
             };
+
+            _wordBoxViews = new List<BoxView>
+            {
+                Box1, Box2, Box3, Box4, Box5, Box6, Box7
+            };
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -71,6 +77,36 @@ namespace Zpr.Fer.Hr.Lumen
                 _image.HorizontalOptions = LayoutOptions.Fill;
                 _image.Opacity = .6;
             }
+        }
+
+        private void ComfirmButton_Clicked(object sender, EventArgs e)
+        {
+            WordLabel.IsVisible = false;
+            WordLabel.Text = string.Empty;
+            foreach (var box in _wordBoxViews)
+            {
+                var image = _boxViewForImage.Where(x => x.Value == box).Select(x => x.Key).FirstOrDefault();
+                if (image == null) continue;
+                var letter = ((FileImageSource)image.Source).File.Replace(".png", "").ToUpper();
+                switch (letter)
+                {
+                    case "CC":
+                        WordLabel.Text += "Ć"; break;
+                    case "CH":
+                        WordLabel.Text += "Č"; break;
+                    case "ZZ":
+                        WordLabel.Text += "Ž"; break;
+                    case "DD":
+                        WordLabel.Text += "Đ"; break;
+                    case "DZ":
+                        WordLabel.Text += "DŽ"; break;
+                    case "SS":
+                        WordLabel.Text += "Š"; break;
+                    default:
+                        WordLabel.Text += letter; break;
+                }
+            }
+            WordLabel.IsVisible = true;
         }
     }
 }

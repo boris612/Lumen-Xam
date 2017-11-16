@@ -11,8 +11,7 @@
 namespace Zpr.Fer.Hr.Lumen {
     
     
-    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("D:\\Programming\\Projekt\\Lumen-Xam\\Zpr.Fer.Hr.Lumen\\Zpr.Fer.Hr.Lumen\\Zpr.Fer.Hr.Lum" +
-        "en\\MainPage.xaml")]
+    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("C:\\Lumen-Xam\\Zpr.Fer.Hr.Lumen\\Zpr.Fer.Hr.Lumen\\Zpr.Fer.Hr.Lumen\\MainPage.xaml")]
     public partial class MainPage : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
@@ -85,6 +84,9 @@ namespace Zpr.Fer.Hr.Lumen {
         private global::Xamarin.Forms.Image LetterH;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
+        private global::Xamarin.Forms.Label WordLabel;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(MainPage));
             Box1 = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.BoxView>(this, "Box1");
@@ -110,6 +112,7 @@ namespace Zpr.Fer.Hr.Lumen {
             LetterF = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Image>(this, "LetterF");
             LetterG = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Image>(this, "LetterG");
             LetterH = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Image>(this, "LetterH");
+            WordLabel = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Label>(this, "WordLabel");
         }
     }
 }
