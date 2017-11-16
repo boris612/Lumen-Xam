@@ -54,9 +54,9 @@ namespace Zpr.Fer.Hr.Lumen
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            if (sender is BoxView boxView)
+            if (sender is BoxView)
             {
-                boxView = (BoxView)sender;
+                var boxView = (BoxView)sender;
                 if (_image != null && _boxViewEmpty[boxView])
                 {
                     _image.TranslateTo(boxView.X - _image.X, boxView.Y - _image.Y);
@@ -70,12 +70,27 @@ namespace Zpr.Fer.Hr.Lumen
             }
             else
             {
+                var image = (Image)sender;
                 // if another letter was tapped before
-                if(_image != null) _image.Opacity = 1;
-
-                _image = (Image)sender;
-                _image.HorizontalOptions = LayoutOptions.Fill;
-                _image.Opacity = .6;
+                if (_image != null)
+                {
+                    _image.Opacity = 1;
+                    var box1 = _boxViewForImage[image];
+                    var box2 = _boxViewForImage[_image];
+                    _boxViewForImage.Remove(image);
+                    _boxViewForImage.Remove(_image);
+                    _boxViewForImage.Add(image, box2);
+                    _boxViewForImage.Add(_image, box1);
+                    image.TranslateTo(box2.X - image.X, box2.Y - image.Y);
+                    _image.TranslateTo(box1.X - _image.X, box1.Y - _image.Y);
+                    _image = null;
+                }
+                else
+                {
+                    _image = (Image)sender;
+                    _image.HorizontalOptions = LayoutOptions.Fill;
+                    _image.Opacity = .6;
+                }
             }
         }
 
