@@ -64,6 +64,9 @@ namespace Zpr.Fer.Hr.Lumen
             }
             else
             {
+                // if another letter was tapped before
+                if(_image != null) _image.Opacity = 1;
+
                 _image = (Image)sender;
                 _image.HorizontalOptions = LayoutOptions.Fill;
                 _image.Opacity = .6;

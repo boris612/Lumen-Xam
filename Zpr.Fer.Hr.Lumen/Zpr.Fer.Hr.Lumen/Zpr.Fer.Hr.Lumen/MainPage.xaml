@@ -20,79 +20,79 @@
             <StackLayout VerticalOptions="EndAndExpand" Grid.Row="1" >
                 <Grid Margin="3" Padding="3">
                     <!-- -->
-                    <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="Red"  Margin="5" x:Name="Box1">
+                    <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="Blue" Opacity=".5" Margin="5" x:Name="Box1">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
-                    <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="Red"  Margin="5" x:Name="Box2">
+                    <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="Blue" Opacity=".5"  Margin="5" x:Name="Box2">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
-                    <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="Red"  Margin="5" x:Name="Box3">
+                    <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="Blue" Opacity=".5"  Margin="5" x:Name="Box3">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
-                    <BoxView Grid.Row="0" Grid.Column="3" BackgroundColor="Red"  Margin="5" x:Name="Box4">
+                    <BoxView Grid.Row="0" Grid.Column="3" BackgroundColor="Blue" Opacity=".5"  Margin="5" x:Name="Box4">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
-                    <BoxView Grid.Row="0" Grid.Column="4" BackgroundColor="Red" Margin="5" x:Name="Box5" >
+                    <BoxView Grid.Row="0" Grid.Column="4" BackgroundColor="Blue" Opacity=".5" Margin="5" x:Name="Box5" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
-                    <BoxView Grid.Row="0" Grid.Column="5" BackgroundColor="Red"  Margin="5" x:Name="Box6" >
+                    <BoxView Grid.Row="0" Grid.Column="5" BackgroundColor="Blue" Opacity=".5"  Margin="5" x:Name="Box6" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
-                    <BoxView Grid.Row="0" Grid.Column="6" BackgroundColor="Red"  Margin="5" x:Name="Box7" >
+                    <BoxView Grid.Row="0" Grid.Column="6" BackgroundColor="Blue" Opacity=".5"  Margin="5" x:Name="Box7" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
 
                     <!-- -->
-                    <BoxView Grid.Row="2" Grid.Column="0" Margin="5" x:Name="Box8" >
+                    <BoxView Grid.Row="2" Grid.Column="0" Margin="5" BackgroundColor="Gray" Opacity=".5" x:Name="Box8" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
-                    <BoxView Grid.Row="2" Grid.Column="1" Margin="5" x:Name="Box9" >
+                    <BoxView Grid.Row="2" Grid.Column="1" Margin="5" BackgroundColor="Gray" Opacity=".5" x:Name="Box9" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
-                    <BoxView Grid.Row="2" Grid.Column="2" Margin="5" x:Name="Box10" >
+                    <BoxView Grid.Row="2" Grid.Column="2" Margin="5" BackgroundColor="Gray" Opacity=".5" x:Name="Box10" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
-                    <BoxView Grid.Row="2" Grid.Column="3" Margin="5" x:Name="Box11" >
+                    <BoxView Grid.Row="2" Grid.Column="3" Margin="5" BackgroundColor="Gray" Opacity=".5" x:Name="Box11" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
-                    <BoxView Grid.Row="2" Grid.Column="4" Margin="5" x:Name="Box12" >
+                    <BoxView Grid.Row="2" Grid.Column="4" Margin="5" BackgroundColor="Gray" Opacity=".5" x:Name="Box12" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
-                    <BoxView Grid.Row="2" Grid.Column="5" Margin="5" x:Name="Box13" >
+                    <BoxView Grid.Row="2" Grid.Column="5" Margin="5" BackgroundColor="Gray" Opacity=".5" x:Name="Box13" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
-                    <BoxView Grid.Row="3" Grid.Column="0" Margin="5" x:Name="Box14" >
+                    <BoxView Grid.Row="3" Grid.Column="0" Margin="5" BackgroundColor="Gray" Opacity=".5" x:Name="Box14" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
                     </BoxView>
-                    <BoxView Grid.Row="3" Grid.Column="1" Margin="5" x:Name="Box15" >
+                    <BoxView Grid.Row="3" Grid.Column="1" Margin="5" BackgroundColor="Gray" Opacity=".5" x:Name="Box15" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Image.GestureRecognizers>
