@@ -51,18 +51,23 @@ namespace Zpr.Fer.Hr.Lumen
             if (sender is BoxView boxView)
             {
                 boxView = (BoxView)sender;
-                if(_image != null && _boxViewEmpty[boxView])
+                if (_image != null && _boxViewEmpty[boxView])
                 {
-					_image.TranslateTo(boxView.X - _image.X, boxView.Y - _image.Y);
+                    _image.TranslateTo(boxView.X - _image.X, boxView.Y - _image.Y);
+                    _image.Opacity = 1;
                     _boxViewEmpty[_boxViewForImage[_image]] = true;
-                    DisplayAlert("alert", _boxViewEmpty[_boxViewForImage[_image]] ? "true": "false", "OK");
                     _boxViewForImage.Remove(_image);
                     _boxViewForImage.Add(_image, boxView);
                     _boxViewEmpty[boxView] = false;
                     _image = null;
                 }
             }
-            else _image = (Image)sender;
+            else
+            {
+                _image = (Image)sender;
+                _image.HorizontalOptions = LayoutOptions.Fill;
+                _image.Opacity = .6;
+            }
         }
     }
 }
