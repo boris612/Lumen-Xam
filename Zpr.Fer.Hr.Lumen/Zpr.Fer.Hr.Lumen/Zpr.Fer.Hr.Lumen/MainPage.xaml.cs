@@ -16,6 +16,7 @@ namespace Zpr.Fer.Hr.Lumen
         public MainPage()
         {
             InitializeComponent();
+
             _boxViewEmpty = new Dictionary<BoxView, bool>
             {
                 {Box1, true },
