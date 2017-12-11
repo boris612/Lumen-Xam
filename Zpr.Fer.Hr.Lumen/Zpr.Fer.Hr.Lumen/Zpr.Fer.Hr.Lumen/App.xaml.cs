@@ -9,6 +9,16 @@ namespace Zpr.Fer.Hr.Lumen
 {
     public partial class App : Application
     {
+        private static LumenDatabase _database;
+        public static LumenDatabase Database
+        {
+            get
+            {
+                if (_database == null)
+                    _database = new LumenDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("lumenDb.db3"));
+                return _database;
+            }
+        }
         public App()
         {
             InitializeComponent();
