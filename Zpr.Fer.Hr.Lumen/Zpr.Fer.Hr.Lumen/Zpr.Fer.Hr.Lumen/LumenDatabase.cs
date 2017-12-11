@@ -40,7 +40,6 @@ namespace Zpr.Fer.Hr.Lumen
             _database.Execute("CREATE TABLE Word( " +
                         "ID INT PRIMARY KEY," +
                         "ImagePath TEXT UNIQUE NOT NULL," +
-                        "LastUsed DATETIME" +
                     ");" +
                     "CREATE TABLE Language(" +
                         "ID INT PRIMARY KEY," +

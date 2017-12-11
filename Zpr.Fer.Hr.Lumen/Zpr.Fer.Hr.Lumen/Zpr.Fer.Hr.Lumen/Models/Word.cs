@@ -13,6 +13,5 @@ namespace Zpr.Fer.Hr.Lumen.Models
         public int ID { get; set; }
         public string ImagePath { get; set; }
         public int DifficultyID { get; set; }
-        public DateTime LastUsed { get; set; }
     }
 }
