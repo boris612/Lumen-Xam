@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace Zpr.Fer.Hr.Lumen.Models
 {
-    public class Word
+    class Difficulty
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
+        public int Level { get; set; }
         public string Name { get; set; }
-        public string ImagePath { get; set; }
-        public int Difficulty { get; set; }
         public string Language { get; set; }
     }
 }

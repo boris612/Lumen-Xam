@@ -14,71 +14,51 @@ namespace Zpr.Fer.Hr.Lumen
         public LumenDatabase(string path)
         {
             _database = new SQLiteConnection(path);
-            if (_database.ExecuteScalar<string>("SELECT name FROM sqlite_master WHERE type='table' AND name='Word'") != "Word")
-            {
+            //if (_database.ExecuteScalar<string>("SELECT name FROM sqlite_master WHERE type='table' AND name='Word'") != "Word")
+            //{
                 InitializeDatabase();
-            }
+            //}
         }
 
         public List<Word> GetAllWords()
         {
             if (_database == null) return null;
-            var words = _database.Query<Word>("SELECT * FROM Word");
+            var words = _database.Query<Word>("select * from Word");
             return words;
         }
 
         public Word GetWord()
         {
             if (_database == null) return null;
-            var word = _database.FindWithQuery<Word>("SELECT * FROM Word ORDER BY LastUsed LIMIT 1");
-            return word;
+            return _database.Get<Word>(x => x.Name == "GOL");
         }
 
         private static void InitializeDatabase()
         {
-            #region CreateTables
-            _database.Execute("CREATE TABLE Word( " +
-                        "ID INT PRIMARY KEY," +
-                        "ImagePath TEXT UNIQUE NOT NULL," +
-                    ");" +
-                    "CREATE TABLE Language(" +
-                        "ID INT PRIMARY KEY," +
-                        "Name TEXT UNIQUE NOT NULL" +
-                    ");" +
-                    "CREATE TABLE Difficulty(" +
-                        "ID INT PRIMARY KEY" +
-                    ");" +
-                    "CREATE TABLE WordName(" +
-                        "ID INT PRIMARY KEY," +
-                        "WordID INT NOT NULL," +
-                        "LanguageID INT NOT NULL," +
-                        "Name TEXT NOT NULL," +
-                        "DifficultyID INT NOT NULL," +
-                        "FOREIGN KEY(WordID) REFERENCES Word(ID)," +
-                        "FOREIGN KEY(LanguageID) REFERENCES Language(ID)," +
-                        "FOREIGN KEY(DifficultyID) REFERENCES DifficultyID(ID)," +
-                        "UNIQUE(WordID, LanguageID, DifficultyID)" +
-                    ");" +
-                    "CREATE TABLE DifficultyName(" +
-                        "ID INT PRIMARY KEY, " +
-                        "DifficultyID INT NOT NULL, " +
-                        "LanguageID INT NOT NULL, " +
-                        "Name TEXT NOT NULL, " +
-                        "FOREIGN KEY(DifficultyID) REFERENCES(Difficulty), " +
-                        "FOREIGN KEY(LanguageID) REFERENCES(Language), " +
-                    ");");
-            #endregion
+            _database.Execute("drop table difficultyName");
+            _database.Execute("drop table wordname");
+            _database.Execute("drop table word");
+            _database.Execute("drop table difficulty");
+            _database.Execute("drop table language");
+            if (_database.Table<Word>() != null) _database.DropTable<Word>();
+            if (_database.Table<Difficulty>() != null) _database.DropTable<Difficulty>();
 
+            _database.CreateTable<Word>();
+            _database.CreateTable<Difficulty>();
 
-            #region Insert
-            _database.Execute("INSERT INTO Word(ID, ImagePath) VALUES(0, 'gol.jpg')");
-            _database.Execute("INSERT INTO Language(ID, Name) VALUES(0, 'hr-HR')");
-            _database.Execute("INSERT INTO Difficulty(ID) VALUES(0)");
-            _database.Execute("INSERT INTO DifficultyName(ID, DifficultyID, LanguageID, Name) " +
-                "VALUES(0, 0, 0, 'Lagano')");
-            _database.Execute("INSERT INTO WordName(ID, WordID, LanguageID, DifficultyID, Name)" +
-                "VALUES(0, 0, 0, 0, 'GOL')");
-            #endregion
+            _database.Insert(new Word
+            {
+                Name = "GOL",
+                ImagePath = "gol.jpg",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+            _database.Insert(new Difficulty
+            {
+                Name = "Lagano",
+                Level = 0,
+                Language = "hr-HR"
+            });
         }
     }
 }
