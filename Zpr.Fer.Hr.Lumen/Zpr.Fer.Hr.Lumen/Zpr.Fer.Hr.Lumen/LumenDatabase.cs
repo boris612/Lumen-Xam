@@ -35,11 +35,11 @@ namespace Zpr.Fer.Hr.Lumen
 
         private static void InitializeDatabase()
         {
-            _database.Execute("drop table difficultyName");
-            _database.Execute("drop table wordname");
-            _database.Execute("drop table word");
-            _database.Execute("drop table difficulty");
-            _database.Execute("drop table language");
+            //_database.Execute("drop table difficultyName");
+            //_database.Execute("drop table wordname");
+            //_database.Execute("drop table word");
+            //_database.Execute("drop table difficulty");
+            //_database.Execute("drop table language");
             if (_database.Table<Word>() != null) _database.DropTable<Word>();
             if (_database.Table<Difficulty>() != null) _database.DropTable<Difficulty>();
 
