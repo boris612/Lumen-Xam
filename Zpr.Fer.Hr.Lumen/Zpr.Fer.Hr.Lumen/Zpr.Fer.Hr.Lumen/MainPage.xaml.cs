@@ -65,60 +65,67 @@ namespace Zpr.Fer.Hr.Lumen
 
             #region OfferedLettersBoardInit
             var rnd = new Random();
-            var boxViews = new List<BoxView>();
-            var allLetters = "ABCČĆDĐEFGHIJKLMNOOPRSŠTUVZŽ";
+            var columnLength = letters.Length + 2;
+            var gridChildrenIndexOffset = 1 + letters.Length;
+            var allLetters = "ABCDEFGHIJKLMNOOPRSTUVZ";
 
+            //Fill grid with box views
             for (var i = 0; i < 2; i++)
                 for (var j = 0; j < letters.Length + 2; j++)
                 {
-                    var box = new BoxView
+                    var boxView = new BoxView
                     {
                         Color = Color.AliceBlue
                     };
-                    box.GestureRecognizers.Add(tapGestureRecognizer);
-                    grid.Children.Add(box, j + 1, i + 3);
-                    boxViews.Add(box);
+                    boxView.GestureRecognizers.Add(tapGestureRecognizer);
+                    _boxViewEmpty.Add(boxView, true);
+                    grid.Children.Add(boxView, j + 1, i + 3);
                 }
 
             //Fill random box views with word characters
-            var letterArray = new string[2, letters.Length + 2];
             for (var i = 0; i < letters.Length; i++)
             {
                 var row = rnd.Next(2);
                 var column = rnd.Next(letters.Length + 2);
-                if (string.IsNullOrWhiteSpace(letterArray[row, column]))
+                var index = gridChildrenIndexOffset + row * columnLength + column;
+                var boxView = (BoxView)grid.Children[index];
+                if (_boxViewEmpty[boxView])
                 {
-                    letterArray[row, column] = letters[i].ToString();
                     var image = new Image
                     {
                         Source = letters[i] + ".png"
                     };
-                    var index = row * (letters.Length + 2) + column;
+                    
                     image.GestureRecognizers.Add(tapGestureRecognizer);
-                    _boxViewEmpty.Add(boxViews[index], false);
-                    _boxViewForImage.Add(image, boxViews[index]);
+                    _boxViewEmpty[boxView] = false;
+                    _boxViewForImage.Add(image, boxView);
                     grid.Children.Add(image, column + 1, row + 3);
                 }
                 else i--;
             }
 
             //Fill remaining box views with random characters
-            for (var i = 0; i <= 1; i++)
-                for (var j = 0; j < letters.Length + 2; j++)
-                    if (string.IsNullOrWhiteSpace(letterArray[i, j]))
+            for (var row = 0; row <= 1; row++)
+            {
+                for (var column = 0; column < columnLength; column++)
+                {
+                    var index = gridChildrenIndexOffset + row * columnLength + column;
+                    var boxView = (BoxView)grid.Children[index];
+                    if (_boxViewEmpty[boxView])
                     {
                         var image = new Image
                         {
                             Source = allLetters[rnd.Next(allLetters.Length)] + ".png"
                         };
                         image.GestureRecognizers.Add(tapGestureRecognizer);
-                        var index = i * (letters.Length + 2) +  j;
-                        _boxViewEmpty.Add(boxViews[index], false);
-                        _boxViewForImage.Add(image, boxViews[index]);
-                        grid.Children.Add(image, j + 1, i + 3);
-                    }
-            #endregion
 
+                        _boxViewEmpty[boxView] = false;
+                        _boxViewForImage.Add(image, boxView);
+                        grid.Children.Add(image, column + 1, row + 3);
+                    }
+                }
+            }
+            #endregion
             Content = grid;
         }
 
