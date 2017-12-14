@@ -10,6 +10,9 @@ namespace Zpr.Fer.Hr.Lumen
 {
     public partial class MainPage : ContentPage
     {
+        public static Label StatusLabel { get; set; }
+        public static Word Word { get; set; }
+
         private static Dictionary<BoxView, bool> _boxViewEmpty;
         private static Dictionary<Image, BoxView> _boxViewForImage;
         private static List<BoxView> _wordBoxViews;
@@ -20,12 +23,12 @@ namespace Zpr.Fer.Hr.Lumen
             _boxViewEmpty = new Dictionary<BoxView, bool>();
             _boxViewForImage = new Dictionary<Image, BoxView>();
             _wordBoxViews = new List<BoxView>();
-            var word = new Word
+            Word = new Word
             {
                 Name = "GOL",
                 ImagePath = "gol.jpg"
             };
-            var letters = word.Name.ToCharArray();
+            var letters = Word.Name.ToCharArray();
             #region GridInit
             var grid = new Grid();
             grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0.4, GridUnitType.Star) });
@@ -44,7 +47,7 @@ namespace Zpr.Fer.Hr.Lumen
 
             var mainImage = new Image
             {
-                Source = word.ImagePath
+                Source = Word.ImagePath
             };
             grid.Children.Add(mainImage, 1, grid.ColumnDefinitions.Count, 0, 1);
             var tapGestureRecognizer = new TapGestureRecognizer();
@@ -95,7 +98,7 @@ namespace Zpr.Fer.Hr.Lumen
                     {
                         Source = letters[i] + ".png"
                     };
-                    
+
                     image.GestureRecognizers.Add(tapGestureRecognizer);
                     _boxViewEmpty[boxView] = false;
                     _boxViewForImage.Add(image, boxView);
@@ -126,6 +129,35 @@ namespace Zpr.Fer.Hr.Lumen
                 }
             }
             #endregion
+
+            //var button = new Button
+            //{
+            //    Text = "a"
+            //};
+            //button.Pressed += (s, e) => ComfirmButton_Clicked(s, e);
+
+            //grid.Children.Add(button, 2, 5);
+
+            var labelButton = new Label
+            {
+                BackgroundColor = Color.LightYellow, 
+                Text = "Potvrdi", 
+                HorizontalTextAlignment = TextAlignment.Center, 
+                VerticalTextAlignment = TextAlignment.Center
+            };
+            var buttonGestureRecognizer = new TapGestureRecognizer();
+            buttonGestureRecognizer.Tapped += (s, e) => ComfirmButton_Clicked(s, e);
+            labelButton.GestureRecognizers.Add(buttonGestureRecognizer);
+
+            grid.Children.Add(labelButton, 3, 2);
+
+            StatusLabel = new Label
+            {
+                IsVisible = false, 
+                HorizontalTextAlignment = TextAlignment.Center, 
+                VerticalTextAlignment = TextAlignment.Center
+            };
+            grid.Children.Add(StatusLabel, 2, 2);
             Content = grid;
         }
 
@@ -174,32 +206,43 @@ namespace Zpr.Fer.Hr.Lumen
 
         private void ComfirmButton_Clicked(object sender, EventArgs e)
         {
-            //WordLabel.IsVisible = false;
-            //WordLabel.Text = string.Empty;
+            StatusLabel.IsVisible = false;
+            StatusLabel.Text = string.Empty;
+            string word = "";
             foreach (var box in _wordBoxViews)
             {
                 var image = _boxViewForImage.Where(x => x.Value == box).Select(x => x.Key).FirstOrDefault();
                 if (image == null) continue;
                 var letter = ((FileImageSource)image.Source).File.Replace(".png", "").ToUpper();
-                //switch (letter)
-                //{
-                //    case "CC":
-                //        WordLabel.Text += "Ć"; break;
-                //    case "CH":
-                //        WordLabel.Text += "Č"; break;
-                //    case "ZZ":
-                //        WordLabel.Text += "Ž"; break;
-                //    case "DD":
-                //        WordLabel.Text += "Đ"; break;
-                //    case "DZ":
-                //        WordLabel.Text += "DŽ"; break;
-                //    case "SS":
-                //        WordLabel.Text += "Š"; break;
-                //    default:
-                //        WordLabel.Text += letter; break;
-                //}
+                switch (letter)
+                {
+                    case "CC":
+                        word += "Ć"; break;
+                    case "CH":
+                        word += "Č"; break;
+                    case "ZZ":
+                        word += "Ž"; break;
+                    case "DD":
+                        word += "Đ"; break;
+                    case "DZ":
+                        word += "DŽ"; break;
+                    case "SS":
+                        word += "Š"; break;
+                    default:
+                        word += letter; break;
+                }
             }
-            //WordLabel.IsVisible = true;
+            if(word == Word.Name)
+            {
+                StatusLabel.TextColor = Color.Green;
+                StatusLabel.Text = "TOČNO";
+            }
+            else
+            {
+                StatusLabel.TextColor = Color.Red;
+                StatusLabel.Text = "KRIVO";
+            }
+            StatusLabel.IsVisible = true;
         }
     }
 }
