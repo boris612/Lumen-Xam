@@ -23,12 +23,10 @@ namespace Zpr.Fer.Hr.Lumen
             _boxViewEmpty = new Dictionary<BoxView, bool>();
             _boxViewForImage = new Dictionary<Image, BoxView>();
             _wordBoxViews = new List<BoxView>();
-            Word = new Word
-            {
-                Name = "GOL",
-                ImagePath = "gol.jpg"
-            };
+            Word = GameWordUtils.getRandomWord();
+
             var letters = Word.Name.ToCharArray();
+
             #region GridInit
             var grid = new Grid();
             grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0.4, GridUnitType.Star) });
@@ -67,7 +65,7 @@ namespace Zpr.Fer.Hr.Lumen
             #endregion
 
             #region OfferedLettersBoardInit
-            var rnd = new Random();
+            var rnd = GameWordUtils.getRandom();
             var columnLength = letters.Length + 2;
             var gridChildrenIndexOffset = 1 + letters.Length;
             var allLetters = "ABCDEFGHIJKLMNOOPRSTUVZ";
@@ -140,21 +138,33 @@ namespace Zpr.Fer.Hr.Lumen
 
             var labelButton = new Label
             {
-                BackgroundColor = Color.LightYellow, 
-                Text = "Potvrdi", 
-                HorizontalTextAlignment = TextAlignment.Center, 
+                BackgroundColor = Color.LightYellow,
+                Text = "Potvrdi",
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center
+            };
+            var skipButton = new Label
+            {
+                BackgroundColor = Color.DarkRed,
+                Text = "Ponovi",
+                HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center
             };
             var buttonGestureRecognizer = new TapGestureRecognizer();
             buttonGestureRecognizer.Tapped += (s, e) => ComfirmButton_Clicked(s, e);
             labelButton.GestureRecognizers.Add(buttonGestureRecognizer);
 
+            var buttonGestureRecognizer2 = new TapGestureRecognizer();
+            buttonGestureRecognizer2.Tapped += (s, e) => RetryButton_Clicked(s, e);
+            skipButton.GestureRecognizers.Add(buttonGestureRecognizer2);
+
             grid.Children.Add(labelButton, 3, 2);
+            grid.Children.Add(skipButton, 4, 2);
 
             StatusLabel = new Label
             {
-                IsVisible = false, 
-                HorizontalTextAlignment = TextAlignment.Center, 
+                IsVisible = false,
+                HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center
             };
             grid.Children.Add(StatusLabel, 2, 2);
@@ -209,10 +219,15 @@ namespace Zpr.Fer.Hr.Lumen
             StatusLabel.IsVisible = false;
             StatusLabel.Text = string.Empty;
             string word = "";
+            int letterCounter = 0;
             foreach (var box in _wordBoxViews)
             {
                 var image = _boxViewForImage.Where(x => x.Value == box).Select(x => x.Key).FirstOrDefault();
-                if (image == null) continue;
+                if (image == null)
+                {
+                    letterCounter++;
+                    continue;
+                }
                 var letter = ((FileImageSource)image.Source).File.Replace(".png", "").ToUpper();
                 switch (letter)
                 {
@@ -231,8 +246,18 @@ namespace Zpr.Fer.Hr.Lumen
                     default:
                         word += letter; break;
                 }
+               
+                if (GameWordUtils.checkLetter(letterCounter, letter))
+                {
+                    box.Color = Color.Green;
+                }
+                else
+                {
+                    box.Color = Color.Red;
+                }
+                letterCounter++;
             }
-            if(word == Word.Name)
+            if (word == Word.Name)
             {
                 StatusLabel.TextColor = Color.Green;
                 StatusLabel.Text = "TOČNO";
@@ -243,6 +268,11 @@ namespace Zpr.Fer.Hr.Lumen
                 StatusLabel.Text = "KRIVO";
             }
             StatusLabel.IsVisible = true;
+        }
+
+        private void RetryButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new MainPage());
         }
     }
 }

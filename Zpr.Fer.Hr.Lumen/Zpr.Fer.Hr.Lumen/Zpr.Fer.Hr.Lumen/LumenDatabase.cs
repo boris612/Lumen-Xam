@@ -53,6 +53,15 @@ namespace Zpr.Fer.Hr.Lumen
                 Difficulty = 0,
                 Language = "hr-HR"
             });
+
+            _database.Insert(new Word
+            {
+                Name = "OBLAK",
+                ImagePath = "oblak.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
             _database.Insert(new Difficulty
             {
                 Name = "Lagano",
