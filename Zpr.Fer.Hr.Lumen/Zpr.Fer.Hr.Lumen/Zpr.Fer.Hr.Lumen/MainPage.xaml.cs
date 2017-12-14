@@ -151,6 +151,7 @@ namespace Zpr.Fer.Hr.Lumen
                 // if another letter was tapped before
                 if (_image != null)
                 {
+                    if (_image == image) return;
                     _image.Opacity = 1;
                     var box1 = _boxViewForImage[image];
                     var box2 = _boxViewForImage[_image];
