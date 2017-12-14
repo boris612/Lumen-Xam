@@ -9,9 +9,11 @@ namespace Zpr.Fer.Hr.Lumen.Models
 {
     public class Word
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
+        public string Name { get; set; }
         public string ImagePath { get; set; }
-        public int DifficultyID { get; set; }
+        public int Difficulty { get; set; }
+        public string Language { get; set; }
     }
 }

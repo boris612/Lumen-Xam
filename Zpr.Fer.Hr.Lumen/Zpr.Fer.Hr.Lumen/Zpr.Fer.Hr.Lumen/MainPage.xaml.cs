@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Zpr.Fer.Hr.Lumen.Models;
 
 namespace Zpr.Fer.Hr.Lumen
 {
@@ -16,41 +17,146 @@ namespace Zpr.Fer.Hr.Lumen
         public MainPage()
         {
             InitializeComponent();
-            var word = App.Database.GetWord();
-            _boxViewEmpty = new Dictionary<BoxView, bool>
+            _boxViewEmpty = new Dictionary<BoxView, bool>();
+            _boxViewForImage = new Dictionary<Image, BoxView>();
+            _wordBoxViews = new List<BoxView>();
+            var word = new Word
             {
-                {Box1, true },
-                {Box2, true },
-                {Box3, true },
-                {Box4, true },
-                {Box5, true },
-                {Box6, true },
-                {Box7, true },
-                {Box8, false },
-                {Box9, false },
-                {Box10, false },
-                {Box11, false },
-                {Box12, false },
-                {Box13, false },
-                {Box14, false },
-                {Box15, false }
+                Name = "GOL",
+                ImagePath = "gol.jpg"
             };
-            _boxViewForImage = new Dictionary<Image, BoxView>
+            var letters = word.Name.ToCharArray();
+            #region GridInit
+            var grid = new Grid();
+            grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0.4, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0.125, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0.1, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0.125, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0.125, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0.125, GridUnitType.Star) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.05, GridUnitType.Star) });
+            for (var i = 0; i < letters.Length + 2; i++)
             {
-                {LetterA, Box8 },
-                {LetterD, Box11 },
-                {LetterB, Box9 },
-                {LetterC, Box10 },
-                {LetterE, Box12 },
-                {LetterF, Box13 },
-                {LetterG, Box14 },
-                {LetterH, Box15 }
-            };
+                grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.9 / (letters.Length + 2), GridUnitType.Star) });
+            }
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.05, GridUnitType.Star) });
+            #endregion
 
-            _wordBoxViews = new List<BoxView>
+            var mainImage = new Image
             {
-                Box1, Box2, Box3, Box4, Box5, Box6, Box7
+                Source = word.ImagePath
             };
+            grid.Children.Add(mainImage, 1, grid.ColumnDefinitions.Count, 0, 1);
+
+            #region GuessingBoardInit
+
+
+            var tapGestureRecognizer = new TapGestureRecognizer();
+            tapGestureRecognizer.Tapped += (s, e) => TapGestureRecognizer_Tapped(s, e);
+
+            for (var i = 0; i < letters.Length; i++)
+            {
+                var boxView = new BoxView();
+                boxView.Color = Color.AliceBlue;
+                boxView.GestureRecognizers.Add(tapGestureRecognizer);
+                grid.Children.Add(boxView, i + 2, 1);
+                _boxViewEmpty.Add(boxView, true);
+                _wordBoxViews.Add(boxView);
+            }
+            #endregion
+
+            #region OfferedLettersBoardInit
+            var rnd = new Random();
+            var boxViews = new List<BoxView>();
+            var images = new List<Image>();
+            var allLetters = "ABCČĆDĐEFGHIJKLMNOOPRSŠTUVZŽ";
+
+            for (var i = 0; i < 2; i++)
+                for (var j = 0; j < letters.Length + 2; j++)
+                {
+                    var box = new BoxView
+                    {
+                        Color = Color.AliceBlue
+                    };
+                    box.GestureRecognizers.Add(tapGestureRecognizer);
+                    grid.Children.Add(box, j + 1, i + 3);
+                    boxViews.Add(box);
+                }
+
+            var letterArray = new string[2, letters.Length + 2];
+            for (var i = 0; i < letters.Length; i++)
+            {
+                var row = rnd.Next(2);
+                var column = rnd.Next(letters.Length + 2);
+                if (string.IsNullOrWhiteSpace(letterArray[row, column]))
+                {
+                    letterArray[row, column] = letters[i].ToString();
+                    var image = new Image
+                    {
+                        Source = letterArray[row, column] + ".png"
+                    };
+                    var index = row * (letters.Length + 2) + column;
+                    image.GestureRecognizers.Add(tapGestureRecognizer);
+                    _boxViewEmpty.Add(boxViews[index], false);
+                    _boxViewForImage.Add(image, boxViews[index]);
+                    grid.Children.Add(image, column + 1, row + 3);
+                }
+                else
+                    i--;
+            }
+            for (var i = 0; i <= 1; i++)
+                for (var j = 0; j < letters.Length + 2; j++)
+                    if (string.IsNullOrWhiteSpace(letterArray[i, j]))
+                    {
+                        var image = new Image
+                        {
+                            Source = allLetters[rnd.Next(allLetters.Length)] + ".png"
+                        };
+                        image.GestureRecognizers.Add(tapGestureRecognizer);
+                        var index = i * (letters.Length + 2) +  j;
+                        _boxViewEmpty.Add(boxViews[index], false);
+                        _boxViewForImage.Add(image, boxViews[index]);
+                        grid.Children.Add(image, j + 1, i + 3);
+                    }
+            #endregion
+
+
+
+            //    _boxViewEmpty = new Dictionary<BoxView, bool>
+            //    {
+            //        {Box1, true },
+            //        {Box2, true },
+            //        {Box3, true },
+            //        {Box4, true },
+            //        {Box5, true },
+            //        {Box6, true },
+            //        {Box7, true },
+            //        {Box8, false },
+            //        {Box9, false },
+            //        {Box10, false },
+            //        {Box11, false },
+            //        {Box12, false },
+            //        {Box13, false },
+            //        {Box14, false },
+            //        {Box15, false }
+            //    };
+            //    _boxViewForImage = new Dictionary<Image, BoxView>
+            //    {
+            //        {LetterA, Box8 },
+            //        {LetterD, Box11 },
+            //        {LetterB, Box9 },
+            //        {LetterC, Box10 },
+            //        {LetterE, Box12 },
+            //        {LetterF, Box13 },
+            //        {LetterG, Box14 },
+            //        {LetterH, Box15 }
+            //    };
+
+            //    _wordBoxViews = new List<BoxView>
+            //    {
+            //        Box1, Box2, Box3, Box4, Box5, Box6, Box7
+            //    };
+            Content = grid;
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -97,32 +203,32 @@ namespace Zpr.Fer.Hr.Lumen
 
         private void ComfirmButton_Clicked(object sender, EventArgs e)
         {
-            WordLabel.IsVisible = false;
-            WordLabel.Text = string.Empty;
+            //WordLabel.IsVisible = false;
+            //WordLabel.Text = string.Empty;
             foreach (var box in _wordBoxViews)
             {
                 var image = _boxViewForImage.Where(x => x.Value == box).Select(x => x.Key).FirstOrDefault();
                 if (image == null) continue;
                 var letter = ((FileImageSource)image.Source).File.Replace(".png", "").ToUpper();
-                switch (letter)
-                {
-                    case "CC":
-                        WordLabel.Text += "Ć"; break;
-                    case "CH":
-                        WordLabel.Text += "Č"; break;
-                    case "ZZ":
-                        WordLabel.Text += "Ž"; break;
-                    case "DD":
-                        WordLabel.Text += "Đ"; break;
-                    case "DZ":
-                        WordLabel.Text += "DŽ"; break;
-                    case "SS":
-                        WordLabel.Text += "Š"; break;
-                    default:
-                        WordLabel.Text += letter; break;
-                }
+                //switch (letter)
+                //{
+                //    case "CC":
+                //        WordLabel.Text += "Ć"; break;
+                //    case "CH":
+                //        WordLabel.Text += "Č"; break;
+                //    case "ZZ":
+                //        WordLabel.Text += "Ž"; break;
+                //    case "DD":
+                //        WordLabel.Text += "Đ"; break;
+                //    case "DZ":
+                //        WordLabel.Text += "DŽ"; break;
+                //    case "SS":
+                //        WordLabel.Text += "Š"; break;
+                //    default:
+                //        WordLabel.Text += letter; break;
+                //}
             }
-            WordLabel.IsVisible = true;
+            //WordLabel.IsVisible = true;
         }
     }
 }
