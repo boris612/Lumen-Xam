@@ -43,6 +43,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Difficulty.cs" />
     <Compile Include="Models\Word.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

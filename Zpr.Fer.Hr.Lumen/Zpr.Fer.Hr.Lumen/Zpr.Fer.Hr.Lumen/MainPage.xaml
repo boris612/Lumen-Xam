@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:Zpr.Fer.Hr.Lumen"
              x:Class="Zpr.Fer.Hr.Lumen.MainPage">
 
-    <ContentPage.Content>
+    <!--<ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40*" />
@@ -19,7 +19,7 @@
 
             <StackLayout VerticalOptions="EndAndExpand" Grid.Row="1" >
                 <Grid Margin="3" Padding="3" Grid.Row="1">
-                    <!-- -->
+                     
                     <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="Blue" Opacity=".5" Margin="5" x:Name="Box1">
                         <BoxView.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
@@ -56,7 +56,7 @@
                         </BoxView.GestureRecognizers>
                     </BoxView>
 
-                    <!-- -->
+                     
                     <BoxView Grid.Row="2" Grid.Column="0" Margin="5" BackgroundColor="Gray" Opacity=".5" x:Name="Box8" >
                         <BoxView.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
@@ -144,11 +144,11 @@
                             <TapGestureRecognizer Tapped="ComfirmButton_Clicked"/>
                         </BoxView.GestureRecognizers>
                     </BoxView>
-                    <!--<Button Text="Hello" Grid.Row="3" Grid.Column="3" Margin="5"></Button>-->
+                    <Button Text="Hello" Grid.Row="3" Grid.Column="3" Margin="5"></Button>
                     <Label x:Name="WordLabel" IsVisible="False" Grid.Row="3" Grid.Column="4"/>
 
                 </Grid>
             </StackLayout>
         </Grid>
-    </ContentPage.Content>
+    </ContentPage.Content>-->
 </ContentPage>

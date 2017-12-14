@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Zpr.Fer.Hr.Lumen.Models
 {
-    class Difficulty
+    public class Difficulty
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
