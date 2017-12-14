@@ -47,12 +47,10 @@ namespace Zpr.Fer.Hr.Lumen
                 Source = word.ImagePath
             };
             grid.Children.Add(mainImage, 1, grid.ColumnDefinitions.Count, 0, 1);
-
-            #region GuessingBoardInit
-
-
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += (s, e) => TapGestureRecognizer_Tapped(s, e);
+
+            #region GuessingBoardInit
 
             for (var i = 0; i < letters.Length; i++)
             {
@@ -68,7 +66,6 @@ namespace Zpr.Fer.Hr.Lumen
             #region OfferedLettersBoardInit
             var rnd = new Random();
             var boxViews = new List<BoxView>();
-            var images = new List<Image>();
             var allLetters = "ABCČĆDĐEFGHIJKLMNOOPRSŠTUVZŽ";
 
             for (var i = 0; i < 2; i++)
@@ -83,6 +80,7 @@ namespace Zpr.Fer.Hr.Lumen
                     boxViews.Add(box);
                 }
 
+            //Fill random box views with word characters
             var letterArray = new string[2, letters.Length + 2];
             for (var i = 0; i < letters.Length; i++)
             {
@@ -93,7 +91,7 @@ namespace Zpr.Fer.Hr.Lumen
                     letterArray[row, column] = letters[i].ToString();
                     var image = new Image
                     {
-                        Source = letterArray[row, column] + ".png"
+                        Source = letters[i] + ".png"
                     };
                     var index = row * (letters.Length + 2) + column;
                     image.GestureRecognizers.Add(tapGestureRecognizer);
@@ -101,9 +99,10 @@ namespace Zpr.Fer.Hr.Lumen
                     _boxViewForImage.Add(image, boxViews[index]);
                     grid.Children.Add(image, column + 1, row + 3);
                 }
-                else
-                    i--;
+                else i--;
             }
+
+            //Fill remaining box views with random characters
             for (var i = 0; i <= 1; i++)
                 for (var j = 0; j < letters.Length + 2; j++)
                     if (string.IsNullOrWhiteSpace(letterArray[i, j]))
@@ -120,42 +119,6 @@ namespace Zpr.Fer.Hr.Lumen
                     }
             #endregion
 
-
-
-            //    _boxViewEmpty = new Dictionary<BoxView, bool>
-            //    {
-            //        {Box1, true },
-            //        {Box2, true },
-            //        {Box3, true },
-            //        {Box4, true },
-            //        {Box5, true },
-            //        {Box6, true },
-            //        {Box7, true },
-            //        {Box8, false },
-            //        {Box9, false },
-            //        {Box10, false },
-            //        {Box11, false },
-            //        {Box12, false },
-            //        {Box13, false },
-            //        {Box14, false },
-            //        {Box15, false }
-            //    };
-            //    _boxViewForImage = new Dictionary<Image, BoxView>
-            //    {
-            //        {LetterA, Box8 },
-            //        {LetterD, Box11 },
-            //        {LetterB, Box9 },
-            //        {LetterC, Box10 },
-            //        {LetterE, Box12 },
-            //        {LetterF, Box13 },
-            //        {LetterG, Box14 },
-            //        {LetterH, Box15 }
-            //    };
-
-            //    _wordBoxViews = new List<BoxView>
-            //    {
-            //        Box1, Box2, Box3, Box4, Box5, Box6, Box7
-            //    };
             Content = grid;
         }
 
