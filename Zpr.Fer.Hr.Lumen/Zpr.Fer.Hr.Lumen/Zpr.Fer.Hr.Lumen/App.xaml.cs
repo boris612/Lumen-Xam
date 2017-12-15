@@ -22,8 +22,7 @@ namespace Zpr.Fer.Hr.Lumen
         public App()
         {
             InitializeComponent();
-            _database = new LumenDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("lumenDb.db3"));
-            MainPage = new Zpr.Fer.Hr.Lumen.MainPage();
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()

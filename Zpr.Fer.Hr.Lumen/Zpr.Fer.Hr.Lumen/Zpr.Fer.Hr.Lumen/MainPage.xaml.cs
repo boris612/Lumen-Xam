@@ -20,6 +20,8 @@ namespace Zpr.Fer.Hr.Lumen
         public MainPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
+
             _boxViewEmpty = new Dictionary<BoxView, bool>();
             _boxViewForImage = new Dictionary<Image, BoxView>();
             _wordBoxViews = new List<BoxView>();
@@ -127,14 +129,6 @@ namespace Zpr.Fer.Hr.Lumen
                 }
             }
             #endregion
-
-            //var button = new Button
-            //{
-            //    Text = "a"
-            //};
-            //button.Pressed += (s, e) => ComfirmButton_Clicked(s, e);
-
-            //grid.Children.Add(button, 2, 5);
 
             var labelButton = new Label
             {
@@ -270,9 +264,11 @@ namespace Zpr.Fer.Hr.Lumen
             StatusLabel.IsVisible = true;
         }
 
-        private void RetryButton_Clicked(object sender, EventArgs e)
+        private async Task RetryButton_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new MainPage());
+            var lastPage = Navigation.NavigationStack.First();
+            await Navigation.PushAsync(new MainPage(), true);
+            Navigation.RemovePage(lastPage);           
         }
     }
 }
