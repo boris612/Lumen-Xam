@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Xamarin.Forms;
+using Zpr.Fer.Hr.Lumen.Pages;
 
 namespace Zpr.Fer.Hr.Lumen
 {
