@@ -53,5 +53,16 @@ namespace Zpr.Fer.Hr.Lumen
             }
             return letter == c;
         }
+
+        public static List<Letter> GetRandomLetters(int count)
+        {
+            var randomLetters = new List<Letter>();
+            var letters = App.Database.GetAllLetters();
+            for(var i = 0; i < count; i++)
+            {
+                randomLetters.Add(letters[Random.Next(letters.Count)]);
+            }
+            return randomLetters;
+        }
     }
 }
