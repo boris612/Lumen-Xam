@@ -33,6 +33,13 @@ namespace Zpr.Fer.Hr.Lumen
             return _database.Get<Word>(x => x.Name == "GOL");
         }
 
+        public List<Letter> GetAllLetters()
+        {
+            if (_database == null) return null;
+            var letters = _database.Query<Letter>("select * from Letter");
+            return letters;
+        }
+
         private static void InitializeDatabase()
         {
             //_database.Execute("drop table difficultyName");
