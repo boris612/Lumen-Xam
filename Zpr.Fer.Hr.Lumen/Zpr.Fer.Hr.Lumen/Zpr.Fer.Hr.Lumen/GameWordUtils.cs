@@ -9,22 +9,18 @@ namespace Zpr.Fer.Hr.Lumen
 {
     static class GameWordUtils
     {
-        private static Random rnd = new Random();
+        public static Random Random { get; private set; } = new Random();
         private static List<Word> words = App.Database.GetAllWords();
         private static List<Word> usedWords = new List<Word>();
         private static Word word = new Word();
 
-        public static Random getRandom()
-        {
-            return rnd;
-        }
 
-        public static Word getRandomWord()
+        public static Word GetRandomWord()
         {
             
             while (true)
             {
-                word = words[rnd.Next(words.Count)];
+                word = words[Random.Next(words.Count)];
                 if (usedWords != null && usedWords.Contains(word))
                         continue;
                 else
@@ -43,7 +39,7 @@ namespace Zpr.Fer.Hr.Lumen
             return word.Name == Name;
         }
 
-        public static Word getWord()
+        public static Word GetWord()
         {
             return word;
         }

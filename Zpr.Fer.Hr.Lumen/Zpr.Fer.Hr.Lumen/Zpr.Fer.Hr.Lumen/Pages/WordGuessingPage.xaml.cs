@@ -27,7 +27,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             _boxViewEmpty = new Dictionary<BoxView, bool>();
             _boxViewForImage = new Dictionary<Image, BoxView>();
             _wordBoxViews = new List<BoxView>();
-            Word = GameWordUtils.getRandomWord();
+            Word = GameWordUtils.GetRandomWord();
 
             var letters = Word.Name.ToCharArray();
 
@@ -69,7 +69,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             #endregion
 
             #region OfferedLettersBoardInit
-            var rnd = GameWordUtils.getRandom();
+            var rnd = GameWordUtils.Random;
             var columnLength = letters.Length + 2;
             var gridChildrenIndexOffset = 1 + letters.Length;
             var allLetters = "ABCDEFGHIJKLMNOOPRSTUVZ";
@@ -243,7 +243,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                         word += letter; break;
                 }
 
-                if (GameWordUtils.checkLetter(letterCounter, letter))
+                if (GameWordUtils.CheckLetter(letterCounter, letter))
                 {
                     box.Color = Color.Green;
                 }
