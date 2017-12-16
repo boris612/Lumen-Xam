@@ -34,7 +34,7 @@ namespace Zpr.Fer.Hr.Lumen
             return word;
         }
 
-        public static Boolean checkWord(string Name)
+        public static Boolean CheckWord(string Name)
         {
             return word.Name == Name;
         }
@@ -44,7 +44,7 @@ namespace Zpr.Fer.Hr.Lumen
             return word;
         }
 
-        public static Boolean checkLetter(int letterCounter, string letter)
+        public static Boolean CheckLetter(int letterCounter, string letter)
         {
             string c = String.Empty;
             if (letterCounter < word.Name.Length)

@@ -13,20 +13,23 @@ namespace Zpr.Fer.Hr.Lumen.Pages
     public partial class WordGuessingPage : ContentPage
     {
         public static Label StatusLabel { get; set; }
+        public static Button ConfirmButton { get; set; }
+        public static Button RetryButton { get; set; }
         public static Word Word { get; set; }
 
         private static Dictionary<BoxView, bool> _boxViewEmpty;
         private static Dictionary<Image, BoxView> _boxViewForImage;
         private static List<BoxView> _wordBoxViews;
+        private static List<Image> _previewLetters;
         private static Image _image;
         public WordGuessingPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
 
             _boxViewEmpty = new Dictionary<BoxView, bool>();
             _boxViewForImage = new Dictionary<Image, BoxView>();
             _wordBoxViews = new List<BoxView>();
+            _previewLetters = new List<Image>();
             Word = GameWordUtils.GetRandomWord();
 
             var letters = Word.Name.ToCharArray();
@@ -59,8 +62,16 @@ namespace Zpr.Fer.Hr.Lumen.Pages
 
             for (var i = 0; i < letters.Length; i++)
             {
-                var boxView = new BoxView();
-                boxView.Color = Color.AliceBlue;
+                var image = new Image();
+                image.Source = letters[i] + ".png";
+                _previewLetters.Add(image);
+                grid.Children.Add(image, i + 2, 1);
+                var boxView = new BoxView()
+                {
+                    Color = Color.LightYellow,
+                    Opacity = 0
+                };
+
                 boxView.GestureRecognizers.Add(tapGestureRecognizer);
                 grid.Children.Add(boxView, i + 2, 1);
                 _boxViewEmpty.Add(boxView, true);
@@ -71,7 +82,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             #region OfferedLettersBoardInit
             var rnd = GameWordUtils.Random;
             var columnLength = letters.Length + 2;
-            var gridChildrenIndexOffset = 1 + letters.Length;
+            var gridChildrenIndexOffset = 1 + 2 * letters.Length;
             var allLetters = "ABCDEFGHIJKLMNOOPRSTUVZ";
 
             //Fill grid with box views
@@ -80,7 +91,8 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 {
                     var boxView = new BoxView
                     {
-                        Color = Color.AliceBlue
+                        Color = Color.LightYellow,
+                        Opacity = 0
                     };
                     boxView.GestureRecognizers.Add(tapGestureRecognizer);
                     _boxViewEmpty.Add(boxView, true);
@@ -98,7 +110,8 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 {
                     var image = new Image
                     {
-                        Source = letters[i] + ".png"
+                        Source = letters[i] + ".png",
+                        Opacity = 0
                     };
 
                     image.GestureRecognizers.Add(tapGestureRecognizer);
@@ -120,7 +133,8 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                     {
                         var image = new Image
                         {
-                            Source = allLetters[rnd.Next(allLetters.Length)] + ".png"
+                            Source = allLetters[rnd.Next(allLetters.Length)] + ".png", 
+                            Opacity = 0
                         };
                         image.GestureRecognizers.Add(tapGestureRecognizer);
 
@@ -132,39 +146,39 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             }
             #endregion
 
-            var labelButton = new Label
+            ConfirmButton = new Button
             {
                 BackgroundColor = Color.LightYellow,
                 Text = "Potvrdi",
-                HorizontalTextAlignment = TextAlignment.Center,
-                VerticalTextAlignment = TextAlignment.Center
+                Opacity = 0
             };
-            var skipButton = new Label
+            ConfirmButton.Clicked += ConfirmButton_Clicked;
+            RetryButton = new Button
             {
                 BackgroundColor = Color.DarkRed,
                 Text = "Ponovi",
-                HorizontalTextAlignment = TextAlignment.Center,
-                VerticalTextAlignment = TextAlignment.Center
+                Opacity = 0
             };
-            var buttonGestureRecognizer = new TapGestureRecognizer();
-            buttonGestureRecognizer.Tapped += (s, e) => ComfirmButton_Clicked(s, e);
-            labelButton.GestureRecognizers.Add(buttonGestureRecognizer);
+            RetryButton.Clicked += RetryButton_Clicked;
 
-            var buttonGestureRecognizer2 = new TapGestureRecognizer();
-            buttonGestureRecognizer2.Tapped += (s, e) => RetryButton_Clicked(s, e);
-            skipButton.GestureRecognizers.Add(buttonGestureRecognizer2);
-
-            grid.Children.Add(labelButton, 3, 2);
-            grid.Children.Add(skipButton, 4, 2);
+            grid.Children.Add(ConfirmButton, 3, 2);
+            grid.Children.Add(RetryButton, 4, 2);
 
             StatusLabel = new Label
             {
                 IsVisible = false,
                 HorizontalTextAlignment = TextAlignment.Center,
-                VerticalTextAlignment = TextAlignment.Center
+                VerticalTextAlignment = TextAlignment.Center,
+                Opacity = 0
             };
             grid.Children.Add(StatusLabel, 2, 2);
             Content = grid;
+            StartPreview();
+        }
+
+        private void RetryButton_Clicked1(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -210,7 +224,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             }
         }
 
-        private void ComfirmButton_Clicked(object sender, EventArgs e)
+        private void ConfirmButton_Clicked(object sender, EventArgs e)
         {
             StatusLabel.IsVisible = false;
             StatusLabel.Text = string.Empty;
@@ -266,11 +280,55 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             StatusLabel.IsVisible = true;
         }
 
-        private async Task RetryButton_Clicked(object sender, EventArgs e)
+        private async void RetryButton_Clicked(object sender, EventArgs e)
         {
             var lastPage = Navigation.NavigationStack.First();
-            await Navigation.PushAsync(new MainPage(), true);
+            await Navigation.PushAsync(new WordGuessingPage(), true);
             Navigation.RemovePage(lastPage);
+        }
+        private async void StartPreview()
+        {
+            var previewFadeOut = new Animation();
+            var gameFadeIn = new Animation();
+            #region AddFadeoutAnimations
+            foreach (var letter in _previewLetters)
+            {
+                previewFadeOut.Add(0, 1, new Animation(
+                    a => letter.Opacity = a, 1, 0, Easing.SinOut));
+            }
+            #endregion
+            #region AddFadeInAnimations
+            foreach (var box in _boxViewEmpty)
+            {
+                gameFadeIn.Add(0, 1, new Animation(
+                    a => box.Key.Opacity = a, 0, 1, Easing.SinIn));
+            }
+            foreach (var image in _boxViewForImage)
+            {
+                gameFadeIn.Add(0, 1, new Animation(
+                    a => image.Key.Opacity = a, 0, 1, Easing.SinIn));
+            }
+            gameFadeIn.Add(0, 1, new Animation(
+                    a => ConfirmButton.Opacity = a, 0, 1, Easing.SinIn));
+            gameFadeIn.Add(0, 1, new Animation(
+                    a => RetryButton.Opacity = a, 0, 1, Easing.SinIn));
+            gameFadeIn.Add(0, 1, new Animation(
+                    a => StatusLabel.Opacity = a, 0, 1, Easing.SinIn)); 
+            #endregion
+
+            await Task.Delay(5000);
+
+            previewFadeOut.Commit(
+                owner: StatusLabel,
+                name: "FadeOut",
+                length: 500);
+
+            gameFadeIn.Commit(
+                owner: StatusLabel,
+                name: "FadeIn",
+                length: 500);
+
+
         }
     }
 }

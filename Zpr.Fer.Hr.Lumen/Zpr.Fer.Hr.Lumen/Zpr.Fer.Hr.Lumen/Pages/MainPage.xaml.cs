@@ -17,19 +17,19 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             InitializeComponent();
         }
 
-        private void StartWordGuessingGameButton_Clicked(object sender, EventArgs e)
+        private async void StartWordGuessingGameButton_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new WordPreviewPage());
+            await Navigation.PushAsync(new WordGuessingPage());
         }
 
-        private void StartCoinGameButton_Clicked(object sender, EventArgs e)
+        private async void StartCoinGameButton_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new CoinGamePage());
+            await Navigation.PushAsync(new CoinGamePage());
         }
 
-        private void SettingsButton_Clicked(object sender, EventArgs e)
+        private async void SettingsButton_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new SettingsPage());
+            await Navigation.PushAsync(new SettingsPage());
         }
     }
 }
