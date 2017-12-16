@@ -16,5 +16,20 @@ namespace Zpr.Fer.Hr.Lumen.Pages
         {
             InitializeComponent();
         }
+
+        private void StartWordGuessingGameButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new WordPreviewPage());
+        }
+
+        private void StartCoinGameButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new CoinGamePage());
+        }
+
+        private void SettingsButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new SettingsPage());
+        }
     }
 }

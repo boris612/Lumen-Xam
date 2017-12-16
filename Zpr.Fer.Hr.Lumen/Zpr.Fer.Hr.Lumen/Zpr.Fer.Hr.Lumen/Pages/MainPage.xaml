@@ -2,6 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Zpr.Fer.Hr.Lumen"
-             x:Class="Zpr.Fer.Hr.Lumen.Pages.MainPage">
+             x:Class="Zpr.Fer.Hr.Lumen.Pages.MainPage"
+             NavigationPage.HasNavigationBar="False">
+    <StackLayout HorizontalOptions="Center">
+        <Label Text="Odaberi igru"/>
 
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Pogađanje riječi" 
+                    Clicked="StartWordGuessingGameButton_Clicked"/>
+            <Button Text="Igra s novčićima"
+                    Clicked="StartCoinGameButton_Clicked"/>
+        </StackLayout>
+
+        <Button Text="Postavke"
+                Clicked="SettingsButton_Clicked"/>
+
+    </StackLayout>
 </ContentPage>
