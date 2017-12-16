@@ -32,7 +32,8 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             _previewLetters = new List<Image>();
             Word = GameWordUtils.GetRandomWord();
 
-            var letters = Word.Name.ToCharArray();
+            var letters = GameWordUtils.GetLettersForWord(Word);
+            var columnLength = letters.Count + 2;
 
             #region GridInit
             var grid = new Grid();
@@ -43,9 +44,9 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0.125, GridUnitType.Star) });
             grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0.125, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.05, GridUnitType.Star) });
-            for (var i = 0; i < letters.Length + 2; i++)
+            for (var i = 0; i < columnLength; i++)
             {
-                grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.9 / (letters.Length + 2), GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.9 / columnLength, GridUnitType.Star) });
             }
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.05, GridUnitType.Star) });
             #endregion
@@ -60,10 +61,12 @@ namespace Zpr.Fer.Hr.Lumen.Pages
 
             #region GuessingBoardInit
 
-            for (var i = 0; i < letters.Length; i++)
+            for (var i = 0; i < letters.Count; i++)
             {
-                var image = new Image();
-                image.Source = letters[i] + ".png";
+                var image = new Image()
+                {
+                    Source = letters[i].ImagePath
+                };
                 _previewLetters.Add(image);
                 grid.Children.Add(image, i + 2, 1);
                 var boxView = new BoxView()
@@ -81,13 +84,12 @@ namespace Zpr.Fer.Hr.Lumen.Pages
 
             #region OfferedLettersBoardInit
             var rnd = GameWordUtils.Random;
-            var columnLength = letters.Length + 2;
-            var gridChildrenIndexOffset = 1 + 2 * letters.Length;
-            var allLetters = "ABCDEFGHIJKLMNOOPRSTUVZ";
+            var randomLetters = GameWordUtils.GetRandomLetters(columnLength * 2);
+            var gridChildrenIndexOffset = 1 + 2 * letters.Count;
 
             //Fill grid with box views
             for (var i = 0; i < 2; i++)
-                for (var j = 0; j < letters.Length + 2; j++)
+                for (var j = 0; j < columnLength; j++)
                 {
                     var boxView = new BoxView
                     {
@@ -100,17 +102,17 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 }
 
             //Fill random box views with word characters
-            for (var i = 0; i < letters.Length; i++)
+            for (var i = 0; i < letters.Count; i++)
             {
                 var row = rnd.Next(2);
-                var column = rnd.Next(letters.Length + 2);
+                var column = rnd.Next(columnLength);
                 var index = gridChildrenIndexOffset + row * columnLength + column;
                 var boxView = (BoxView)grid.Children[index];
                 if (_boxViewEmpty[boxView])
                 {
                     var image = new Image
                     {
-                        Source = letters[i] + ".png",
+                        Source = letters[i].ImagePath,
                         Opacity = 0
                     };
 
@@ -133,7 +135,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                     {
                         var image = new Image
                         {
-                            Source = allLetters[rnd.Next(allLetters.Length)] + ".png", 
+                            Source = randomLetters[row * columnLength + column].ImagePath, 
                             Opacity = 0
                         };
                         image.GestureRecognizers.Add(tapGestureRecognizer);

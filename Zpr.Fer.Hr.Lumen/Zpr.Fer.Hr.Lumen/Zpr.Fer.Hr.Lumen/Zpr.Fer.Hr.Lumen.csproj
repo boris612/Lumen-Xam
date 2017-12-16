@@ -42,6 +42,7 @@
     <Compile Include="IFileHelper.cs" />
     <Compile Include="LumenDatabase.cs" />
     <Compile Include="Models\Difficulty.cs" />
+    <Compile Include="Models\Letter.cs" />
     <Compile Include="Models\Word.cs" />
     <Compile Include="Pages\CoinGamePage.xaml.cs">
       <DependentUpon>CoinGamePage.xaml</DependentUpon>
@@ -54,9 +55,6 @@
     </Compile>
     <Compile Include="Pages\WordGuessingPage.xaml.cs">
       <DependentUpon>WordGuessingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\WordPreviewPage.xaml.cs">
-      <DependentUpon>WordPreviewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -98,10 +96,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\WordGuessingPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pages\WordPreviewPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

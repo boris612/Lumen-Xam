@@ -81,6 +81,8 @@ namespace Zpr.Fer.Hr.Lumen
                             letters.Add(_letters.Where(l => l.Name == "LJ").Single());
                             i++;
                         }
+                        else
+                            letters.Add(_letters.Where(l => l.Name == name[i].ToString()).Single());
                         break;
                     case 'D':
                         if (i + 1 < name.Length && name[i + 1] == 'Ž')
@@ -88,6 +90,8 @@ namespace Zpr.Fer.Hr.Lumen
                             letters.Add(_letters.Where(l => l.Name == "DŽ").Single());
                             i++;
                         }
+                        else
+                            letters.Add(_letters.Where(l => l.Name == name[i].ToString()).Single());
                         break;
                     default:
                         letters.Add(_letters.Where(l => l.Name == name[i].ToString()).Single());
