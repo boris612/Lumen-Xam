@@ -42,9 +42,11 @@ namespace Zpr.Fer.Hr.Lumen
             //_database.Execute("drop table language");
             if (_database.Table<Word>() != null) _database.DropTable<Word>();
             if (_database.Table<Difficulty>() != null) _database.DropTable<Difficulty>();
+            if (_database.Table<Letter>() != null) _database.DropTable<Letter>();
 
             _database.CreateTable<Word>();
             _database.CreateTable<Difficulty>();
+            _database.CreateTable<Letter>();
 
             _database.Insert(new Word
             {
@@ -68,6 +70,190 @@ namespace Zpr.Fer.Hr.Lumen
                 Level = 0,
                 Language = "hr-HR"
             });
+
+            #region InsertLetters
+            _database.Insert(new Letter
+            {
+                Name = "A",
+                ImagePath = "A.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "B",
+                ImagePath = "B.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "C",
+                ImagePath = "C.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "Č",
+                ImagePath = "CH.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "Ć",
+                ImagePath = "CC.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "D",
+                ImagePath = "D.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "Đ",
+                ImagePath = "DD.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "DŽ",
+                ImagePath = "DZ.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "E",
+                ImagePath = "E.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "F",
+                ImagePath = "F.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "G",
+                ImagePath = "G.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "H",
+                ImagePath = "H.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "I",
+                ImagePath = "I.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "J",
+                ImagePath = "J.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "K",
+                ImagePath = "K.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "L",
+                ImagePath = "L.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "LJ",
+                ImagePath = "LJ.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "M",
+                ImagePath = "M.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "N",
+                ImagePath = "N.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "NJ",
+                ImagePath = "NJ.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "O",
+                ImagePath = "O.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "P",
+                ImagePath = "P.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "R",
+                ImagePath = "R.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "S",
+                ImagePath = "S.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "Š",
+                ImagePath = "SS.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "T",
+                ImagePath = "T.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "U",
+                ImagePath = "U.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "V",
+                ImagePath = "V.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "Z",
+                ImagePath = "Z.png",
+                Language = "hr-HR"
+            });
+            _database.Insert(new Letter
+            {
+                Name = "Ž",
+                ImagePath = "ZZ.png",
+                Language = "hr-HR"
+            });
+
+            #endregion
         }
     }
 }
