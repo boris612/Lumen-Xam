@@ -13,6 +13,7 @@ namespace Zpr.Fer.Hr.Lumen
         private static List<Word> words = App.Database.GetAllWords();
         private static List<Word> usedWords = new List<Word>();
         private static Word word = new Word();
+        private static List<Letter> _letters = App.Database.GetAllLetters();
 
 
         public static Word GetRandomWord()
@@ -57,12 +58,43 @@ namespace Zpr.Fer.Hr.Lumen
         public static List<Letter> GetRandomLetters(int count)
         {
             var randomLetters = new List<Letter>();
-            var letters = App.Database.GetAllLetters();
             for(var i = 0; i < count; i++)
             {
-                randomLetters.Add(letters[Random.Next(letters.Count)]);
+                randomLetters.Add(_letters[Random.Next(_letters.Count)]);
             }
             return randomLetters;
+        }
+
+        public static List<Letter> GetLettersForWord(Word word)
+        {
+            if (word == null || string.IsNullOrWhiteSpace(word.Name)) return null;
+            var letters = new List<Letter>();
+            var name = word.Name;
+            for(var i = 0; i < name.Length; i++)
+            {
+                switch (name[i])
+                {
+                    case 'L':
+                    case 'N':
+                        if (i + 1 < name.Length && name[i + 1] == 'J')
+                        {
+                            letters.Add(_letters.Where(l => l.Name == "LJ").Single());
+                            i++;
+                        }
+                        break;
+                    case 'D':
+                        if (i + 1 < name.Length && name[i + 1] == 'Ž')
+                        {
+                            letters.Add(_letters.Where(l => l.Name == "DŽ").Single());
+                            i++;
+                        }
+                        break;
+                    default:
+                        letters.Add(_letters.Where(l => l.Name == name[i].ToString()).Single());
+                        break;
+                }
+            }
+            return letters;
         }
     }
 }
