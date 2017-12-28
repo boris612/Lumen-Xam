@@ -55,6 +55,11 @@ namespace Zpr.Fer.Hr.Lumen
             return letter == c;
         }
 
+        public static char GetLetter(int letterCounter)
+        {
+            return word.Name[letterCounter];
+        }
+
         public static List<Letter> GetRandomLetters(int count)
         {
             var randomLetters = new List<Letter>();
