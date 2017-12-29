@@ -531,6 +531,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
 
         private async void StartPreview()
         {
+            await Task.Delay(1000);
             var previewFadeOut = new Animation();
             var gameFadeIn = new Animation();
             #region AddFadeoutAnimations
