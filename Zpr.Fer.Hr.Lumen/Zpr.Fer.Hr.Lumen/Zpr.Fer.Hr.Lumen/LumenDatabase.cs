@@ -70,6 +70,31 @@ namespace Zpr.Fer.Hr.Lumen
                 Difficulty = 0,
                 Language = "hr-HR"
             });
+
+            _database.Insert(new Word
+            {
+                Name = "ČEŠALJ",
+                ImagePath = "cesalj.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "LJULJAČKA",
+                ImagePath = "ljuljacka.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "MOBITEL",
+                ImagePath = "mobitel.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
             #endregion
             _database.Insert(new Difficulty
             {
