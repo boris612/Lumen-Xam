@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.SimpleAudioPlayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
         private static Dictionary<Image, BoxView> _boxViewForImage;
         private static List<BoxView> _wordBoxViews;
         private static List<Image> _previewLetters;
+        private List<Letter> _letters;
         private static Image _image;
 
         private static Grid grid;
@@ -35,8 +37,8 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             _previewLetters = new List<Image>();
             Word = GameWordUtils.GetRandomWord();
 
-            var letters = GameWordUtils.GetLettersForWord(Word);
-            var columnLength = letters.Count + 2;
+            _letters = GameWordUtils.GetLettersForWord(Word);
+            var columnLength = _letters.Count + 2;
 
             #region GridInit
             grid = new Grid();
@@ -64,11 +66,11 @@ namespace Zpr.Fer.Hr.Lumen.Pages
 
             #region GuessingBoardInit
 
-            for (var i = 0; i < letters.Count; i++)
+            for (var i = 0; i < _letters.Count; i++)
             {
                 var image = new Image()
                 {
-                    Source = letters[i].ImagePath
+                    Source = _letters[i].ImagePath
                 };
                 _previewLetters.Add(image);
                 grid.Children.Add(image, i + 2, 1);
@@ -88,7 +90,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             #region OfferedLettersBoardInit
             var rnd = GameWordUtils.Random;
             var randomLetters = GameWordUtils.GetRandomLetters(columnLength * 2);
-            var gridChildrenIndexOffset = 1 + 2 * letters.Count;
+            var gridChildrenIndexOffset = 1 + 2 * _letters.Count;
 
             if (Helpers.Settings.MoreLetters == "True")
             {
@@ -108,9 +110,9 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             }
             else
             {
-                if (columnLength > letters.Count)
+                if (columnLength > _letters.Count)
                 {
-                    for (var j = 0; j < letters.Count; j++)
+                    for (var j = 0; j < _letters.Count; j++)
                     {
                         var boxView = new BoxView
                         {
@@ -135,7 +137,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                         _boxViewEmpty.Add(boxView, true);
                         grid.Children.Add(boxView, j + 1, 3);
                     }
-                    for (var j = 0; j < letters.Count - columnLength; j++)
+                    for (var j = 0; j < _letters.Count - columnLength; j++)
                     {
                         var boxView = new BoxView
                         {
@@ -152,7 +154,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             //Fill random box views with word characters
             if (Helpers.Settings.MoreLetters == "True")
             {
-                for (var i = 0; i < letters.Count; i++)
+                for (var i = 0; i < _letters.Count; i++)
                 {
                     var row = rnd.Next(2);
                     var column = rnd.Next(columnLength);
@@ -162,7 +164,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                     {
                         var image = new Image
                         {
-                            Source = letters[i].ImagePath,
+                            Source = _letters[i].ImagePath,
                             Opacity = 0
                         };
 
@@ -176,18 +178,18 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             }
             else
             {
-                if (columnLength > letters.Count)
+                if (columnLength > _letters.Count)
                 {
-                    for (var i = 0; i < letters.Count; i++)
+                    for (var i = 0; i < _letters.Count; i++)
                     {
-                        var column = rnd.Next(letters.Count);
+                        var column = rnd.Next(_letters.Count);
                         var index = gridChildrenIndexOffset + column;
                         var boxView = (BoxView)grid.Children[index];
                         if (_boxViewEmpty[boxView])
                         {
                             var image = new Image
                             {
-                                Source = letters[i].ImagePath,
+                                Source = _letters[i].ImagePath,
                                 Opacity = 0
                             };
 
@@ -201,7 +203,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 }
                 else
                 {
-                    for (var i = 0; i < letters.Count; i++)
+                    for (var i = 0; i < _letters.Count; i++)
                     {
                         var row = rnd.Next(2);
                         int column;
@@ -213,7 +215,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                         }
                         else
                         {
-                            column = rnd.Next(letters.Count - columnLength);
+                            column = rnd.Next(_letters.Count - columnLength);
                             index = gridChildrenIndexOffset + row * columnLength + column;
                         }
                         var boxView = (BoxView)grid.Children[index];
@@ -221,7 +223,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                         {
                             var image = new Image
                             {
-                                Source = letters[i].ImagePath,
+                                Source = _letters[i].ImagePath,
                                 Opacity = 0
                             };
 
@@ -559,7 +561,14 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                     a => CoinLabel.Opacity = a, 0, 1, Easing.SinIn));
             #endregion
 
-            await Task.Delay(5000);
+            //await Task.Delay(5000);
+            var player = CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
+            foreach (var letter in _letters)
+            {
+                player.Load(letter.SoundPath);
+                player.Play();
+                await Task.Delay((int)player.Duration + 1000);
+            }
 
             previewFadeOut.Commit(
                 owner: CoinLabel,
