@@ -302,6 +302,38 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\oblak.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Raw\a.mp3" />
+    <Content Include="Raw\b.mp3" />
+    <Content Include="Raw\c.mp3" />
+    <Content Include="Raw\d.mp3" />
+    <Content Include="Raw\dz.mp3" />
+    <Content Include="Raw\e.mp3" />
+    <Content Include="Raw\f.mp3" />
+    <Content Include="Raw\g.mp3" />
+    <Content Include="Raw\h.mp3" />
+    <Content Include="Raw\i.mp3" />
+    <Content Include="Raw\j.mp3" />
+    <Content Include="Raw\k.mp3" />
+    <Content Include="Raw\l.mp3" />
+    <Content Include="Raw\lj.mp3" />
+    <Content Include="Raw\m.mp3" />
+    <Content Include="Raw\n.mp3" />
+    <Content Include="Raw\nj.mp3" />
+    <Content Include="Raw\o.mp3" />
+    <Content Include="Raw\p.mp3" />
+    <Content Include="Raw\r.mp3" />
+    <Content Include="Raw\s.mp3" />
+    <Content Include="Raw\t.mp3" />
+    <Content Include="Raw\u.mp3" />
+    <Content Include="Raw\v.mp3" />
+    <Content Include="Raw\z.mp3" />
+    <Content Include="Raw\cc.mp3" />
+    <Content Include="Raw\ch.mp3" />
+    <Content Include="Raw\dd.mp3" />
+    <Content Include="Raw\ss.mp3" />
+    <Content Include="Raw\zz.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

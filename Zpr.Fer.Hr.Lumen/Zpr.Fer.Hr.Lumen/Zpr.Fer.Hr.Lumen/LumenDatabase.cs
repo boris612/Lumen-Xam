@@ -54,7 +54,7 @@ namespace Zpr.Fer.Hr.Lumen
             _database.CreateTable<Word>();
             _database.CreateTable<Difficulty>();
             _database.CreateTable<Letter>();
-
+            #region Insert words
             _database.Insert(new Word
             {
                 Name = "GOL",
@@ -70,7 +70,7 @@ namespace Zpr.Fer.Hr.Lumen
                 Difficulty = 0,
                 Language = "hr-HR"
             });
-
+            #endregion
             _database.Insert(new Difficulty
             {
                 Name = "Lagano",
@@ -83,181 +83,211 @@ namespace Zpr.Fer.Hr.Lumen
             {
                 Name = "A",
                 ImagePath = "A.png",
-                Language = "hr-HR"
+                Language = "hr-HR", 
+                SoundPath = "a.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "B",
                 ImagePath = "B.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "b.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "C",
                 ImagePath = "C.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "c.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "Č",
                 ImagePath = "CH.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "ch.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "Ć",
                 ImagePath = "CC.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "cc.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "D",
                 ImagePath = "D.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "d.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "Đ",
                 ImagePath = "DD.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "dd.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "DŽ",
                 ImagePath = "DZ.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "dz.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "E",
                 ImagePath = "E.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "e.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "F",
                 ImagePath = "F.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "f.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "G",
                 ImagePath = "G.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "g.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "H",
                 ImagePath = "H.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "h.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "I",
                 ImagePath = "I.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "i.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "J",
                 ImagePath = "J.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "j.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "K",
                 ImagePath = "K.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "k.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "L",
                 ImagePath = "L.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "l.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "LJ",
                 ImagePath = "LJ.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "lj.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "M",
                 ImagePath = "M.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "m.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "N",
                 ImagePath = "N.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "n.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "NJ",
                 ImagePath = "NJ.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "nj.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "O",
                 ImagePath = "O.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "o.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "P",
                 ImagePath = "P.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "p.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "R",
                 ImagePath = "R.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "r.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "S",
                 ImagePath = "S.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "s.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "Š",
                 ImagePath = "SS.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "ss.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "T",
                 ImagePath = "T.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "t.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "U",
                 ImagePath = "U.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "u.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "V",
                 ImagePath = "V.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "v.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "Z",
                 ImagePath = "Z.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "z.mp3"
             });
             _database.Insert(new Letter
             {
                 Name = "Ž",
                 ImagePath = "ZZ.png",
-                Language = "hr-HR"
+                Language = "hr-HR",
+                SoundPath = "zz.mp3"
             });
 
             #endregion

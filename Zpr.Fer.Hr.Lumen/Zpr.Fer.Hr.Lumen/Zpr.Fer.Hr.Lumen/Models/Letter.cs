@@ -13,7 +13,7 @@ namespace Zpr.Fer.Hr.Lumen.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public string ImagePath { get; set; }
-        public string RecordingPath { get; set; }
+        public string SoundPath { get; set; }
         public string Language { get; set; }
     }
 }
