@@ -17,14 +17,14 @@ namespace Zpr.Fer.Hr.Lumen.Pages
         public static Button ConfirmButton { get; set; }
         public static Button RetryButton { get; set; }
         public static Button HintButton { get; set; }
-        public static Word Word { get; set; }
+        public Word Word { get; set; }
 
-        private static Dictionary<BoxView, bool> _boxViewEmpty;
-        private static Dictionary<Image, BoxView> _boxViewForImage;
-        private static List<BoxView> _wordBoxViews;
-        private static List<Image> _previewLetters;
+        private Dictionary<BoxView, bool> _boxViewEmpty;
+        private Dictionary<Image, BoxView> _boxViewForImage;
+        private List<BoxView> _wordBoxViews;
+        private List<Image> _previewLetters;
         private List<Letter> _letters;
-        private static Image _image;
+        private Image _image;
 
         private static Grid grid;
         public WordGuessingPage()
@@ -301,7 +301,6 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             };
             grid.Children.Add(CoinLabel, 1, 2);
             Content = grid;
-            StartPreview();
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -463,9 +462,20 @@ namespace Zpr.Fer.Hr.Lumen.Pages
 
         private async void RetryButton_Clicked(object sender, EventArgs e)
         {
-            var lastPage = Navigation.NavigationStack.First();
-            await Navigation.PushAsync(new WordGuessingPage(), true);
-            Navigation.RemovePage(lastPage);
+            try
+            {
+                var lastPage = Navigation.NavigationStack.First();
+                var newPage = new WordGuessingPage();
+                await Navigation.PushAsync(newPage, true);
+                Navigation.RemovePage(lastPage);
+                newPage.StartPreview();
+            }
+            catch (Exception r)
+            {
+                var asd = r;
+                throw;
+            }
+
         }
 
         private void HintButton_Clicked(object sender, EventArgs e)
@@ -529,7 +539,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             Helpers.Settings.Coin = coin.ToString();
         }
 
-        private async void StartPreview()
+        public async void StartPreview()
         {
             await Task.Delay(1000);
             var previewFadeOut = new Animation();
@@ -580,8 +590,6 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 owner: CoinLabel,
                 name: "FadeIn",
                 length: 500);
-
-
         }
     }
 }

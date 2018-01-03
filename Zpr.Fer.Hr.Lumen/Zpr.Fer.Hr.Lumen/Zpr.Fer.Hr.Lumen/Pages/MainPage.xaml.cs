@@ -19,7 +19,9 @@ namespace Zpr.Fer.Hr.Lumen.Pages
 
         private async void StartWordGuessingGameButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new WordGuessingPage());
+            var wordGuessingPage = new WordGuessingPage();
+            await Navigation.PushAsync(wordGuessingPage);
+            wordGuessingPage.StartPreview();
         }
 
         private async void StartCoinGameButton_Clicked(object sender, EventArgs e)
