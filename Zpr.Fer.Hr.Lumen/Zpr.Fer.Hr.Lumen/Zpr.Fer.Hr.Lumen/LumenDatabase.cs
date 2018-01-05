@@ -96,6 +96,518 @@ namespace Zpr.Fer.Hr.Lumen
                 Language = "hr-HR"
             });
 
+            _database.Insert(new Word
+            {
+                Name = "BEBA",
+                ImagePath = "beba.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "CIPELA",
+                ImagePath = "cipela.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "ČARAPE",
+                ImagePath = "carape.png",
+                Difficulty = 2,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "DOKTOR",
+                ImagePath = "doktor.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "GITARA",
+                ImagePath = "gitara.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "GUMICA",
+                ImagePath = "gumica.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "HLAĆE",
+                ImagePath = "hlace.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "JAGODA",
+                ImagePath = "jagoda.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "JAKNA",
+                ImagePath = "jakna.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "KAMEN",
+                ImagePath = "kamen.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "KIŠA",
+                ImagePath = "kisa.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "KAVA",
+                ImagePath = "kava.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "KEMIJSKA",
+                ImagePath = "kemijska.png",
+                Difficulty = 2,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "KIŠOBRAN",
+                ImagePath = "kisobran.png",
+                Difficulty = 2,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "KLJUČ",
+                ImagePath = "kljuc.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "KNJIGA",
+                ImagePath = "knjiga.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "KOCKA",
+                ImagePath = "kocka.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "KOLICA",
+                ImagePath = "kolica.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "KREVET",
+                ImagePath = "krevet.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "KRUG",
+                ImagePath = "krug.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "LIST",
+                ImagePath = "list.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "LONAC",
+                ImagePath = "lonac.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "LUK",
+                ImagePath = "luk.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "MAGARAC",
+                ImagePath = "magarac.png",
+                Difficulty = 2,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "MAJICA",
+                ImagePath = "majica.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "MIKROFON",
+                ImagePath = "mikrofon.png",
+                Difficulty = 2,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "MJESEC",
+                ImagePath = "mjesec.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "MUNJA",
+                ImagePath = "munja.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "NOVAC",
+                ImagePath = "novac.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "OGRADA",
+                ImagePath = "ograda.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "OKO",
+                ImagePath = "oko.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "OLOVKA",
+                ImagePath = "olovka.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "ORMAR",
+                ImagePath = "ormar.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "OSA",
+                ImagePath = "osa.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "PAPIGA",
+                ImagePath = "papiga.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "PAPRIKA",
+                ImagePath = "paprika.png",
+                Difficulty = 2,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "PČELA",
+                ImagePath = "pcela.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "PIRAMIDA",
+                ImagePath = "piramida.png",
+                Difficulty = 2,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "POLICIJA",
+                ImagePath = "policija.png",
+                Difficulty = 2,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "RADIO",
+                ImagePath = "radio.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "RAK",
+                ImagePath = "rak.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "RAVNALO",
+                ImagePath = "ravnalo.png",
+                Difficulty = 2,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "REKET",
+                ImagePath = "reket.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "RODA",
+                ImagePath = "roda.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "RUŽA",
+                ImagePath = "ruza.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "SALATA",
+                ImagePath = "salata.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "ŠALICA",
+                ImagePath = "salica.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "ŠKOLJKA",
+                ImagePath = "skoljka.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "ŠLJIVA",
+                ImagePath = "sljiva.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "SOK",
+                ImagePath = "sok.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "STOL",
+                ImagePath = "stol.png",
+                Difficulty = 0,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "SUNCE",
+                ImagePath = "sunce.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "SVEMIR",
+                ImagePath = "svemir.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "TORBA",
+                ImagePath = "torba.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "TRAVA",
+                ImagePath = "trava.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "TREšNJA",
+                ImagePath = "tresnja.png",
+                Difficulty = 2,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "TROKUT",
+                ImagePath = "trokut.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "VATRA",
+                ImagePath = "vatra.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "VILICA",
+                ImagePath = "vilica.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "VJETAR",
+                ImagePath = "vjetar2.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "VRATA",
+                ImagePath = "vrata.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "ZEMLJA",
+                ImagePath = "zemlja.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "ZVONO",
+                ImagePath = "zvono.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Word
+            {
+                Name = "ŽLICA",
+                ImagePath = "zlica.png",
+                Difficulty = 1,
+                Language = "hr-HR"
+            });
+
             #endregion
 
             #region Difficulties
