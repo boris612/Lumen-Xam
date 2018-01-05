@@ -45,15 +45,44 @@ namespace Zpr.Fer.Hr.Lumen
             return word;
         }
 
-        public static Boolean CheckLetter(int letterCounter, string letter)
+        public static string GetLetterAtIndex(string word, int index)
         {
-            string c = String.Empty;
-            if (letterCounter < word.Name.Length)
+            for(var i = 0; i < index; i++)
             {
-                c = char.ToString(word.Name[letterCounter]);
+                switch (word[i])
+                {
+                    case 'L':
+                    case 'N':
+                        if(i + 1 < word.Length && word[i + 1] == 'J')
+                        {
+                            index++;
+                            i++;
+                        }
+                        break;
+                    case 'D':
+                        if (i + 1 < word.Length && word[i + 1] == 'Ž')
+                        {
+                            index++;
+                            i++;
+                        }
+                        break;
+                }
             }
-            return letter == c;
+            switch (word[index])
+            {
+                case 'L':
+                case 'N':
+                    if (index + 1 < word.Length && word[index + 1] == 'J')
+                        return word[index].ToString() + word[index + 1].ToString();
+                    break;
+                case 'D':
+                    if (index + 1 < word.Length && word[index + 1] == 'Ž')
+                        return word[index].ToString() + word[index + 1].ToString();
+                    break;
+            }
+            return word[index].ToString();
         }
+       
 
         public static char GetLetter(int letterCounter)
         {
