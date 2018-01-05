@@ -68,7 +68,7 @@ namespace Zpr.Fer.Hr.Lumen
             {
                 Name = "OBLAK",
                 ImagePath = "oblak.png",
-                Difficulty = 0,
+                Difficulty = 1,
                 Language = "hr-HR"
             });
 
@@ -76,7 +76,7 @@ namespace Zpr.Fer.Hr.Lumen
             {
                 Name = "ČEŠALJ",
                 ImagePath = "cesalj.png",
-                Difficulty = 0,
+                Difficulty = 1,
                 Language = "hr-HR"
             });
 
@@ -84,7 +84,7 @@ namespace Zpr.Fer.Hr.Lumen
             {
                 Name = "LJULJAČKA",
                 ImagePath = "ljuljacka.png",
-                Difficulty = 0,
+                Difficulty = 2,
                 Language = "hr-HR"
             });
 
@@ -92,7 +92,7 @@ namespace Zpr.Fer.Hr.Lumen
             {
                 Name = "MOBITEL",
                 ImagePath = "mobitel.png",
-                Difficulty = 0,
+                Difficulty = 2,
                 Language = "hr-HR"
             });
 
