@@ -54,6 +54,7 @@ namespace Zpr.Fer.Hr.Lumen
             _database.CreateTable<Word>();
             _database.CreateTable<Difficulty>();
             _database.CreateTable<Letter>();
+            
             #region Insert words
             _database.Insert(new Word
             {
@@ -96,12 +97,29 @@ namespace Zpr.Fer.Hr.Lumen
             });
 
             #endregion
+
+            #region Difficulties
             _database.Insert(new Difficulty
             {
                 Name = "Lagano",
                 Level = 0,
                 Language = "hr-HR"
             });
+
+            _database.Insert(new Difficulty
+            {
+                Name = "Srednje",
+                Level = 1,
+                Language = "hr-HR"
+            });
+
+            _database.Insert(new Difficulty
+            {
+                Name = "Teško",
+                Level = 2,
+                Language = "hr-HR"
+            }); 
+            #endregion
 
             #region InsertLetters
             _database.Insert(new Letter
