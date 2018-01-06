@@ -29,6 +29,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
         private static Grid grid;
         public WordGuessingPage()
         {
+
             InitializeComponent();
 
             _boxViewEmpty = new Dictionary<BoxView, bool>();
@@ -301,6 +302,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             };
             grid.Children.Add(CoinLabel, 1, 2);
             Content = grid;
+
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -311,14 +313,19 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 {
                     _image.TranslateTo(boxView.X - _image.X, boxView.Y - _image.Y);
                     _image.Opacity = 1;
-                    _boxViewEmpty[_boxViewForImage[_image]] = true;
+                    var oldBoxView = _boxViewForImage[_image];
+                    _boxViewEmpty[oldBoxView] = true;
                     _boxViewForImage.Remove(_image);
                     _boxViewForImage.Add(_image, boxView);
                     _boxViewEmpty[boxView] = false;
+
+                    if (Helpers.Settings.GreenField == "True")
+                    {
+                        UpdateBoxViewColor(_image, boxView, oldBoxView);
+                    }
                     _image = null;
                 }
                 HintButton.Text = "Hint";
-                boxView.Color = Color.LightYellow;
             }
             else
             {
@@ -336,6 +343,13 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                     _boxViewForImage.Add(_image, box1);
                     image.TranslateTo(box2.X - image.X, box2.Y - image.Y);
                     _image.TranslateTo(box1.X - _image.X, box1.Y - _image.Y);
+
+                    if (Helpers.Settings.GreenField == "True")
+                    {
+                        UpdateBoxViewColor(image, box2);
+                        UpdateBoxViewColor(_image, box1);
+                    }
+
                     _image = null;
                 }
                 else
@@ -347,101 +361,58 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 HintButton.Text = "Hint";
             }
 
-            if (Helpers.Settings.GreenField == "True")
-            {
-                string word = "";
-                int letterCounter = 0;
-                foreach (var box in _wordBoxViews)
-                {
-                    var image = _boxViewForImage.Where(x => x.Value == box).Select(x => x.Key).FirstOrDefault();
-                    if (image == null)
-                    {
-                        letterCounter++;
-                        continue;
-                    }
-                    var letter = ((FileImageSource)image.Source).File.Replace(".png", "").ToUpper();
-                    switch (letter)
-                    {
-                        case "CC":
-                            word += "Ć"; break;
-                        case "CH":
-                            word += "Č"; break;
-                        case "ZZ":
-                            word += "Ž"; break;
-                        case "DD":
-                            word += "Đ"; break;
-                        case "DZ":
-                            word += "DŽ"; break;
-                        case "SS":
-                            word += "Š"; break;
-                        default:
-                            word += letter; break;
-                    }
-
-                    if (GameWordUtils.CheckLetter(letterCounter, letter))
-                    {
-                        box.Color = Color.Green;
-                    }
-                    else
-                    {
-                        box.Color = Color.Red;
-                    }
-                    letterCounter++;
-                }
-            }
+           
         }
 
-        private async void ConfirmButton_Clicked(object sender, EventArgs e)
+        private void UpdateBoxViewColor(Image image, BoxView boxView, BoxView oldBoxView = null)
         {
-            //StatusLabel.IsVisible = false;
-            //StatusLabel.Text = string.Empty;
-            string word = "";
-            int letterCounter = 0;
-            foreach (var box in _wordBoxViews)
+            var boxViewIndex = _wordBoxViews.IndexOf(boxView);
+            if (boxViewIndex != -1)
             {
-                var image = _boxViewForImage.Where(x => x.Value == box).Select(x => x.Key).FirstOrDefault();
-                if (image == null)
+                var imageSource = image.Source.ToString().Replace("File: ", "");
+                var imageLetter = _letters.Where(x => x.ImagePath == imageSource).Select(x => x.Name).FirstOrDefault();
+                var realLetter = GameWordUtils.GetLetterAtIndex(Word.Name, boxViewIndex);
+                if (string.IsNullOrEmpty(realLetter))
                 {
-                    letterCounter++;
-                    continue;
+                    boxView.Color = Color.Red;
                 }
-                var letter = ((FileImageSource)image.Source).File.Replace(".png", "").ToUpper();
-                switch (letter)
+                else if (imageLetter == realLetter)
                 {
-                    case "CC":
-                        word += "Ć"; break;
-                    case "CH":
-                        word += "Č"; break;
-                    case "ZZ":
-                        word += "Ž"; break;
-                    case "DD":
-                        word += "Đ"; break;
-                    case "DZ":
-                        word += "DŽ"; break;
-                    case "SS":
-                        word += "Š"; break;
-                    default:
-                        word += letter; break;
-                }
-
-                if (GameWordUtils.CheckLetter(letterCounter, letter))
-                {
-                    box.Color = Color.Green;
+                    boxView.Color = Color.Green;
                 }
                 else
                 {
-                    box.Color = Color.Red;
+                    boxView.Color = Color.Red;
                 }
-                letterCounter++;
+            }
+            if (oldBoxView != null && oldBoxView.Color != Color.LightYellow)
+                oldBoxView.Color = Color.LightYellow;
+        }
+        private async void ConfirmButton_Clicked(object sender, EventArgs e)
+        {
+            var word = "";
+            for (var i = 0; i < _wordBoxViews.Count; i++)
+            {
+                var box = _wordBoxViews[i];
+                var image = _boxViewForImage.Where(x => box == x.Value).Select(x => x.Key).SingleOrDefault();
+                if(image != null)
+                {
+                    var imageSource = image.Source.ToString();
+                    var letter = _letters.Where(x => x.ImagePath == imageSource).Select(x => x.Name).FirstOrDefault();
+                    word += letter;
+                }
             }
             if (word == Word.Name)
             {
-                //StatusLabel.TextColor = Color.Green;
-                //StatusLabel.Text = "TOČNO";
+                if(Helpers.Settings.GreenField != "True")
+                {
+                    foreach (var box in _wordBoxViews)
+                        box.Color = Color.Green;
+                }
 
                 //add coin
                 var coin = Convert.ToInt32(Helpers.Settings.Coin);
-                coin += 3;
+                coin += Word.Difficulty + 2;
                 CoinLabel.Text = coin.ToString();
                 Helpers.Settings.Coin = coin.ToString();
 
@@ -454,8 +425,11 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             }
             else
             {
-                //StatusLabel.TextColor = Color.Red;
-                //StatusLabel.Text = "KRIVO";
+                if(Helpers.Settings.GreenField != "True")
+                {
+                    foreach (var box in _wordBoxViews)
+                        box.Color = Color.Green;
+                }
             }
             //StatusLabel.IsVisible = true;
         }
@@ -478,65 +452,77 @@ namespace Zpr.Fer.Hr.Lumen.Pages
 
         }
 
-        private void HintButton_Clicked(object sender, EventArgs e)
+        private async void HintButton_Clicked(object sender, EventArgs e)
         {
+            var isSucessfull = false;
             var coin = Convert.ToInt32(Helpers.Settings.Coin);
             #region HintLogic
-            var letterCounter = 0;
-            if (coin > 0)
+            if (coin == 0) return;
+            for(var i = 0; i < _wordBoxViews.Count; i++)
             {
-                foreach (var box in _wordBoxViews)
+                var correctLetter = GameWordUtils.GetLetterAtIndex(Word.Name, i);
+                if (_boxViewEmpty[_wordBoxViews[i]])
                 {
-                    var image = _boxViewForImage.Where(x => x.Value == box).Select(x => x.Key).FirstOrDefault();
-                    if (image == null)
+                    var imageBoxes = _boxViewForImage.Where(x => !_wordBoxViews.Contains(x.Value)).ToList();
+                    
+                    foreach(var imageBox in imageBoxes)
                     {
-                        var character = GameWordUtils.GetLetter(letterCounter);
-                        box.Color = Color.LightBlue;
-                        HintButton.Text = character.ToString().ToUpper();
-                        letterCounter++;
-                        break;
+                        var imageSource = imageBox.Key.Source.ToString().Replace("File: ", "");
+                        var letter = _letters.Where(x => x.ImagePath == imageSource).FirstOrDefault();
+                        if (letter.Name == correctLetter)
+                        {
+                            for (var j = 0; j < 4; j++)
+                            {
+                                _wordBoxViews[i].Color = Color.LightBlue;
+                                imageBox.Value.Color = Color.LightBlue;
+                                await Task.Delay(1000);
+                                _wordBoxViews[i].Color = Color.LightYellow;
+                                imageBox.Value.Color = Color.LightYellow;
+                                await Task.Delay(1000);
+                            }
+                            isSucessfull = true;
+                            break;
+                        }
                     }
-                    var letter = ((FileImageSource)image.Source).File.Replace(".png", "").ToUpper();
-                    switch (letter)
-                    {
-                        case "CC":
-                            letter = "Ć"; break;
-                        case "CH":
-                            letter = "Č"; break;
-                        case "ZZ":
-                            letter = "Ž"; break;
-                        case "DD":
-                            letter = "Đ"; break;
-                        case "DZ":
-                            letter = "DŽ"; break;
-                        case "SS":
-                            letter = "Š"; break;
-                    }
-
-                    if (!GameWordUtils.CheckLetter(letterCounter, letter))
-                    {
-                        var character = GameWordUtils.GetLetter(letterCounter);
-                        box.Color = Color.LightBlue;
-                        HintButton.Text = character.ToString().ToUpper();
-                        letterCounter++;
-                        break;
-                    }
-                    letterCounter++;
+                    if (isSucessfull) break;
                 }
-                if (letterCounter >= GameWordUtils.GetWord().Name.Length)
+                else
                 {
-                    return;
+                    var image = _boxViewForImage.Where(x => x.Value == _wordBoxViews[i]).Select(x => x.Key).SingleOrDefault();
+                    var wordBoxLetter = _letters.Where(x => x.ImagePath == image.Source.ToString().Replace("File: ", "")).FirstOrDefault();
+                    if(wordBoxLetter == null || wordBoxLetter.Name != correctLetter)
+                    {
+                        var imageBoxes = _boxViewForImage.Where(x => !_wordBoxViews.Contains(x.Value)).ToList();
+                        foreach (var imageBox in imageBoxes)
+                        {
+                            var imageSource = imageBox.Key.Source.ToString().Replace("File: ", "");
+                            var letter = _letters.Where(x => x.ImagePath == imageSource).FirstOrDefault();
+                            if (letter.Name == correctLetter)
+                            {
+                                for (var j = 0; j < 4; j++)
+                                {
+                                    _wordBoxViews[i].Color = Color.LightBlue;
+                                    imageBox.Value.Color = Color.LightBlue;
+                                    await Task.Delay(1000);
+                                    _wordBoxViews[i].Color = Color.LightYellow;
+                                    imageBox.Value.Color = Color.LightYellow;
+                                    await Task.Delay(1000);
+                                }
+                                isSucessfull = true;
+                                break;
+                            }
+                        }
+                        if (isSucessfull) break;
+                    }
                 }
             }
             #endregion
-            else
+            if (isSucessfull)
             {
-                HintButton.BackgroundColor = Color.Red;
-                return;
+                coin -= 1;
+                CoinLabel.Text = coin.ToString();
+                Helpers.Settings.Coin = coin.ToString();
             }
-            coin -= 1;
-            CoinLabel.Text = coin.ToString();
-            Helpers.Settings.Coin = coin.ToString();
         }
 
         public async void StartPreview()

@@ -13,5 +13,8 @@
             <Label Text="Ponudi više slova nego što ih sadrži riječ" VerticalTextAlignment="Center"/>
         </StackLayout>
 
+        <Picker Title="Težina" x:Name="Picker" SelectedIndexChanged="Picker_SelectedIndexChanged"/>
+
+        
     </StackLayout>
 </ContentPage>

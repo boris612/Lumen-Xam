@@ -39,6 +39,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="GameWordUtils.cs" />
+    <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="IFileHelper.cs" />
     <Compile Include="LumenDatabase.cs" />

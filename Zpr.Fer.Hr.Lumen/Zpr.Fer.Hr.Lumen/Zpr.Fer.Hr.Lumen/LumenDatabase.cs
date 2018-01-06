@@ -16,14 +16,20 @@ namespace Zpr.Fer.Hr.Lumen
             _database = new SQLiteConnection(path);
             //if (_database.ExecuteScalar<string>("SELECT name FROM sqlite_master WHERE type='table' AND name='Word'") != "Word")
             //{
-                InitializeDatabase();
+            InitializeDatabase();
             //}
         }
 
         public List<Word> GetAllWords()
         {
             if (_database == null) return null;
-            var words = _database.Query<Word>("select * from Word");
+            var difficulty = Helpers.Settings.DifficultyOption;
+            var language = Helpers.Settings.Language;
+            if (difficulty == -1)
+            {
+                difficulty = CalculateDifficulty();
+            }
+            var words = _database.Query<Word>($"select * from Word where Language = '{language}' and Difficulty = {difficulty}");
             return words;
         }
 
@@ -36,8 +42,17 @@ namespace Zpr.Fer.Hr.Lumen
         public List<Letter> GetAllLetters()
         {
             if (_database == null) return null;
-            var letters = _database.Query<Letter>("select * from Letter");
+            var language = Helpers.Settings.Language;
+            var letters = _database.Query<Letter>($"select * from Letter where Language = '{language}'");
             return letters;
+        }
+
+        public List<Difficulty> GetAllDifficulties()
+        {
+            if (_database == null) return null;
+            var language = Helpers.Settings.Language;
+            var difficulties = _database.Query<Difficulty>($"select * from Difficulty where Language = '{language}' order by Level");
+            return difficulties;
         }
 
         private static void InitializeDatabase()
@@ -54,7 +69,7 @@ namespace Zpr.Fer.Hr.Lumen
             _database.CreateTable<Word>();
             _database.CreateTable<Difficulty>();
             _database.CreateTable<Letter>();
-            
+
             #region Insert words
             _database.Insert(new Word
             {
@@ -611,6 +626,14 @@ namespace Zpr.Fer.Hr.Lumen
             #endregion
 
             #region Difficulties
+
+            _database.Insert(new Difficulty
+            {
+                Name = "Automatski",
+                Level = -1,
+                Language = "hr-HR"
+            });
+
             _database.Insert(new Difficulty
             {
                 Name = "Lagano",
@@ -630,7 +653,7 @@ namespace Zpr.Fer.Hr.Lumen
                 Name = "Teško",
                 Level = 2,
                 Language = "hr-HR"
-            }); 
+            });
             #endregion
 
             #region InsertLetters
@@ -638,7 +661,7 @@ namespace Zpr.Fer.Hr.Lumen
             {
                 Name = "A",
                 ImagePath = "A.png",
-                Language = "hr-HR", 
+                Language = "hr-HR",
                 SoundPath = "a.mp3"
             });
             _database.Insert(new Letter
@@ -846,6 +869,22 @@ namespace Zpr.Fer.Hr.Lumen
             });
 
             #endregion
+        }
+
+        private static int CalculateDifficulty()
+        {
+            var correctGuesses = Helpers.Settings.CorrectGuesses;
+            var falseGuesses = Helpers.Settings.FalseGuesses;
+            var sum = correctGuesses + falseGuesses;
+            if (sum < 10) return 0;
+
+            var ratio = (double)correctGuesses / sum;
+            if (ratio <= 0.3)
+                return 0;
+            else if (ratio > 0.3 && ratio <= 0.6)
+                return 1;
+            else 
+                return 2;
         }
     }
 }
