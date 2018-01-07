@@ -18,20 +18,21 @@ namespace Zpr.Fer.Hr.Lumen
 
         public static Word GetRandomWord()
         {
-            
-            while (true)
-            {
-                word = words[Random.Next(words.Count)];
-                if (usedWords != null && usedWords.Contains(word))
-                        continue;
-                else
-                    usedWords.Add(word);
-                    break;
-            }
-            if (usedWords.Count > words.Count - 1)
-            {
-                usedWords = new List<Word>();
-            }
+            var words = App.Database.GetAllWords();
+            return words[Random.Next(words.Count)];
+            //while (true)
+            //{
+            //    word = words[Random.Next(words.Count)];
+            //    if (usedWords != null && usedWords.Contains(word))
+            //            continue;
+            //    else
+            //        usedWords.Add(word);
+            //        break;
+            //}
+            //if (usedWords.Count > words.Count - 1)
+            //{
+            //    usedWords = new List<Word>();
+            //}
             return word;
         }
 

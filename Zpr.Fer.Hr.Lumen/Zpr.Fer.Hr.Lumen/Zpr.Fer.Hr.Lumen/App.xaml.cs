@@ -40,5 +40,7 @@ namespace Zpr.Fer.Hr.Lumen
         {
             // Handle when your app resumes
         }
+        
+        
     }
 }

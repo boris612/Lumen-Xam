@@ -11,12 +11,14 @@ using Zpr.Fer.Hr.Lumen.Models;
 namespace Zpr.Fer.Hr.Lumen.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class WordGuessingPage : ContentPage
+    public partial class WordGuessingPage : ContentPage, IDisposable
     {
-        public static Label CoinLabel { get; set; }
-        public static Button ConfirmButton { get; set; }
-        public static Button RetryButton { get; set; }
-        public static Button HintButton { get; set; }
+        public Label CoinLabel { get; set; }
+        public Image CoinImage { get; set; }
+        public Image Tick { get; set; }
+        //public static Button ConfirmButton { get; set; }
+        public Button RetryButton { get; set; }
+        //public static Button HintButton { get; set; }
         public Word Word { get; set; }
 
         private Dictionary<BoxView, bool> _boxViewEmpty;
@@ -25,11 +27,11 @@ namespace Zpr.Fer.Hr.Lumen.Pages
         private List<Image> _previewLetters;
         private List<Letter> _letters;
         private Image _image;
+        private bool _disposed = false;
 
         private static Grid grid;
         public WordGuessingPage()
         {
-
             InitializeComponent();
 
             _boxViewEmpty = new Dictionary<BoxView, bool>();
@@ -265,13 +267,21 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             }
             #endregion
 
-            ConfirmButton = new Button
+            var confirmTapRecognizer = new TapGestureRecognizer();
+            confirmTapRecognizer.Tapped += ConfirmButton_Clicked;
+            Tick = new Image
             {
-                BackgroundColor = Color.LightYellow,
-                Text = "Potvrdi",
+                Source = "tick.png",
                 Opacity = 0
             };
-            ConfirmButton.Clicked += ConfirmButton_Clicked;
+            Tick.GestureRecognizers.Add(confirmTapRecognizer);
+            //ConfirmButton = new Button
+            //{
+            //    BackgroundColor = Color.LightYellow,
+            //    Text = "Potvrdi",
+            //    Opacity = 0
+            //};
+            //ConfirmButton.Clicked += ConfirmButton_Clicked;
             RetryButton = new Button
             {
                 BackgroundColor = Color.DarkRed,
@@ -279,18 +289,26 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 Opacity = 0
             };
             RetryButton.Clicked += RetryButton_Clicked;
-
-            HintButton = new Button
+            CoinImage = new Image
             {
-                BackgroundColor = Color.LightBlue,
-                Text = "Hint",
-                Opacity = 0
+                Source = "coin.png", 
+                Opacity = 0, 
+                Margin = new Thickness(20)
             };
-            HintButton.Clicked += HintButton_Clicked;
+            var hintTapGestureRecognizer = new TapGestureRecognizer();
+            hintTapGestureRecognizer.Tapped += HintButton_Clicked;
+            CoinImage.GestureRecognizers.Add(hintTapGestureRecognizer);
+            //HintButton = new Button
+            //{
+            //    BackgroundColor = Color.LightBlue,
+            //    Text = "Hint",
+            //    Opacity = 0
+            //};
+            //HintButton.Clicked += HintButton_Clicked;
 
-            grid.Children.Add(ConfirmButton, 2, 2);
+            grid.Children.Add(Tick, grid.ColumnDefinitions.Count - 2, 1);
             grid.Children.Add(RetryButton, 3, 2);
-            grid.Children.Add(HintButton, 4, 2);
+            grid.Children.Add(CoinImage, grid.ColumnDefinitions.Count - 2, 0);
 
             CoinLabel = new Label
             {
@@ -300,7 +318,8 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 Opacity = 0,
                 Text = Helpers.Settings.Coin
             };
-            grid.Children.Add(CoinLabel, 1, 2);
+            CoinLabel.GestureRecognizers.Add(hintTapGestureRecognizer);
+            grid.Children.Add(CoinLabel, grid.ColumnDefinitions.Count - 2, 0);
             Content = grid;
 
         }
@@ -325,7 +344,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                     }
                     _image = null;
                 }
-                HintButton.Text = "Hint";
+                //HintButton.Text = "Hint";
             }
             else
             {
@@ -358,7 +377,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                     _image.HorizontalOptions = LayoutOptions.Fill;
                     _image.Opacity = .6;
                 }
-                HintButton.Text = "Hint";
+                //HintButton.Text = "Hint";
             }
 
            
@@ -397,7 +416,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 var image = _boxViewForImage.Where(x => box == x.Value).Select(x => x.Key).SingleOrDefault();
                 if(image != null)
                 {
-                    var imageSource = image.Source.ToString();
+                    var imageSource = image.Source.ToString().Replace("File: ", "");
                     var letter = _letters.Where(x => x.ImagePath == imageSource).Select(x => x.Name).FirstOrDefault();
                     word += letter;
                 }
@@ -415,45 +434,54 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 coin += Word.Difficulty + 2;
                 CoinLabel.Text = coin.ToString();
                 Helpers.Settings.Coin = coin.ToString();
-
-                ConfirmButton.IsVisible = false;
-                RetryButton.IsVisible = false;
-                HintButton.IsVisible = false;
+                Helpers.Settings.CorrectGuesses++;
+                //ConfirmButton.IsVisible = false;
+                //RetryButton.IsVisible = false;
+                //HintButton.IsVisible = false;
 
                 await Task.Delay(2000);
                 RetryButton_Clicked(sender, e);
             }
             else
             {
-                if(Helpers.Settings.GreenField != "True")
-                {
-                    foreach (var box in _wordBoxViews)
-                        box.Color = Color.Green;
-                }
+                Helpers.Settings.FalseGuesses++;
+                //if(Helpers.Settings.GreenField != "True")
+                //{
+                //    foreach (var box in _wordBoxViews)
+                //        box.Color = Color.Green;
+                //}
             }
             //StatusLabel.IsVisible = true;
         }
 
-        private async void RetryButton_Clicked(object sender, EventArgs e)
+        private void RetryButton_Clicked(object sender, EventArgs e)
         {
             try
             {
-                var lastPage = Navigation.NavigationStack.First();
+                var loadingPage = new LoadingPage();
+                var lastPage = Navigation.NavigationStack.Last();                
+                Navigation.InsertPageBefore(loadingPage, lastPage);
+                Navigation.PopAsync(true);
+                this.Dispose();
+                _disposed = true;
                 var newPage = new WordGuessingPage();
-                await Navigation.PushAsync(newPage, true);
-                Navigation.RemovePage(lastPage);
+                Navigation.InsertPageBefore(newPage, loadingPage);
+                Navigation.PopAsync(true);
                 newPage.StartPreview();
             }
-            catch (Exception r)
+            finally
             {
-                var asd = r;
-                throw;
+                this.Dispose();
             }
+            
 
         }
 
         private async void HintButton_Clicked(object sender, EventArgs e)
         {
+            CoinImage.IsEnabled = false;
+            CoinLabel.IsEnabled = false;
+            //HintButton.IsEnabled = false;
             var isSucessfull = false;
             var coin = Convert.ToInt32(Helpers.Settings.Coin);
             #region HintLogic
@@ -475,10 +503,10 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                             {
                                 _wordBoxViews[i].Color = Color.LightBlue;
                                 imageBox.Value.Color = Color.LightBlue;
-                                await Task.Delay(1000);
+                                await Task.Delay(600);
                                 _wordBoxViews[i].Color = Color.LightYellow;
                                 imageBox.Value.Color = Color.LightYellow;
-                                await Task.Delay(1000);
+                                await Task.Delay(600);
                             }
                             isSucessfull = true;
                             break;
@@ -503,10 +531,10 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                                 {
                                     _wordBoxViews[i].Color = Color.LightBlue;
                                     imageBox.Value.Color = Color.LightBlue;
-                                    await Task.Delay(1000);
+                                    await Task.Delay(600);
                                     _wordBoxViews[i].Color = Color.LightYellow;
                                     imageBox.Value.Color = Color.LightYellow;
-                                    await Task.Delay(1000);
+                                    await Task.Delay(600);
                                 }
                                 isSucessfull = true;
                                 break;
@@ -523,6 +551,9 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 CoinLabel.Text = coin.ToString();
                 Helpers.Settings.Coin = coin.ToString();
             }
+            //HintButton.IsEnabled = true;
+            CoinImage.IsEnabled = true;
+            CoinLabel.IsEnabled = true;
         }
 
         public async void StartPreview()
@@ -549,13 +580,15 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                     a => image.Key.Opacity = a, 0, 1, Easing.SinIn));
             }
             gameFadeIn.Add(0, 1, new Animation(
-                    a => ConfirmButton.Opacity = a, 0, 1, Easing.SinIn));
+                    a => Tick.Opacity = a, 0, 1, Easing.SinIn));
             gameFadeIn.Add(0, 1, new Animation(
                     a => RetryButton.Opacity = a, 0, 1, Easing.SinIn));
-            gameFadeIn.Add(0, 1, new Animation(
-                    a => HintButton.Opacity = a, 0, 1, Easing.SinIn));
+            //gameFadeIn.Add(0, 1, new Animation(
+            //        a => HintButton.Opacity = a, 0, 1, Easing.SinIn));
             gameFadeIn.Add(0, 1, new Animation(
                     a => CoinLabel.Opacity = a, 0, 1, Easing.SinIn));
+            gameFadeIn.Add(0, 1, new Animation(
+                    a => CoinImage.Opacity = a, 0, 1, Easing.SinIn));
             #endregion
 
             //await Task.Delay(5000);
@@ -576,6 +609,33 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 owner: CoinLabel,
                 name: "FadeIn",
                 length: 500);
+        }
+
+        public void Dispose()
+        {
+            if (!_disposed)
+            {
+                grid = null;
+                CoinImage = null;
+                CoinLabel = null;
+                Tick = null;
+                RetryButton = null;
+                Word = null;
+                _boxViewEmpty.Clear();
+                _boxViewEmpty = null;
+                _boxViewForImage.Clear();
+                _boxViewForImage = null;
+                _wordBoxViews.Clear();
+                _wordBoxViews = null;
+                _previewLetters.Clear();
+                _previewLetters = null;
+                _letters.Clear();
+                _letters = null;
+                _image = null;
+                this.Content = null;
+                GC.Collect(); 
+            }
+            
         }
     }
 }
