@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zpr.Fer.Hr.Lumen.Android", "Zpr.Fer.Hr.Lumen\Zpr.Fer.Hr.Lumen.Android\Zpr.Fer.Hr.Lumen.Android.csproj", "{73624CE5-D191-452D-87D6-D14074EAF629}"
 EndProject
@@ -75,9 +75,9 @@ Global
 		{73624CE5-D191-452D-87D6-D14074EAF629}.AppStore|x86.ActiveCfg = Release|Any CPU
 		{73624CE5-D191-452D-87D6-D14074EAF629}.AppStore|x86.Build.0 = Release|Any CPU
 		{73624CE5-D191-452D-87D6-D14074EAF629}.AppStore|x86.Deploy.0 = Release|Any CPU
-		{73624CE5-D191-452D-87D6-D14074EAF629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73624CE5-D191-452D-87D6-D14074EAF629}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73624CE5-D191-452D-87D6-D14074EAF629}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{73624CE5-D191-452D-87D6-D14074EAF629}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{73624CE5-D191-452D-87D6-D14074EAF629}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{73624CE5-D191-452D-87D6-D14074EAF629}.Debug|Any CPU.Deploy.0 = Release|Any CPU
 		{73624CE5-D191-452D-87D6-D14074EAF629}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{73624CE5-D191-452D-87D6-D14074EAF629}.Debug|ARM.Build.0 = Debug|Any CPU
 		{73624CE5-D191-452D-87D6-D14074EAF629}.Debug|ARM.Deploy.0 = Debug|Any CPU
@@ -135,8 +135,8 @@ Global
 		{79EE110E-BAF7-4B9A-8DA2-9DC372D260AE}.AppStore|x64.Build.0 = Release|Any CPU
 		{79EE110E-BAF7-4B9A-8DA2-9DC372D260AE}.AppStore|x86.ActiveCfg = Release|Any CPU
 		{79EE110E-BAF7-4B9A-8DA2-9DC372D260AE}.AppStore|x86.Build.0 = Release|Any CPU
-		{79EE110E-BAF7-4B9A-8DA2-9DC372D260AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79EE110E-BAF7-4B9A-8DA2-9DC372D260AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79EE110E-BAF7-4B9A-8DA2-9DC372D260AE}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{79EE110E-BAF7-4B9A-8DA2-9DC372D260AE}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{79EE110E-BAF7-4B9A-8DA2-9DC372D260AE}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{79EE110E-BAF7-4B9A-8DA2-9DC372D260AE}.Debug|ARM.Build.0 = Debug|Any CPU
 		{79EE110E-BAF7-4B9A-8DA2-9DC372D260AE}.Debug|iPhone.ActiveCfg = Debug|Any CPU
@@ -254,5 +254,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E5242D57-8D86-4C57-BF23-3A5FF696DB20}
 	EndGlobalSection
 EndGlobal

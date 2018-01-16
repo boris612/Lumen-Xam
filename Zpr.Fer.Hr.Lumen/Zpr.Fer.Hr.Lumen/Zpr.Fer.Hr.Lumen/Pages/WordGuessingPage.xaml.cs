@@ -16,6 +16,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
         public Label CoinLabel { get; set; }
         public Image CoinImage { get; set; }
         public Image Tick { get; set; }
+        public Image Cross { get; set; }
         //public static Button ConfirmButton { get; set; }
         public Button RetryButton { get; set; }
         //public static Button HintButton { get; set; }
@@ -28,6 +29,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
         private List<Letter> _letters;
         private Image _image;
         private bool _disposed = false;
+        private bool _hintRunning = false;
 
         private static Grid grid;
         public WordGuessingPage()
@@ -267,14 +269,16 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             }
             #endregion
 
-            var confirmTapRecognizer = new TapGestureRecognizer();
-            confirmTapRecognizer.Tapped += ConfirmButton_Clicked;
             Tick = new Image
             {
                 Source = "tick.png",
-                Opacity = 0
+                IsVisible = false
             };
-            Tick.GestureRecognizers.Add(confirmTapRecognizer);
+            Cross = new Image
+            {
+                Source = "cross.png",
+                IsVisible = false
+            };
             //ConfirmButton = new Button
             //{
             //    BackgroundColor = Color.LightYellow,
@@ -293,7 +297,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             {
                 Source = "coin.png", 
                 Opacity = 0, 
-                Margin = new Thickness(20)
+                Margin = new Thickness(10)
             };
             var hintTapGestureRecognizer = new TapGestureRecognizer();
             hintTapGestureRecognizer.Tapped += HintButton_Clicked;
@@ -307,8 +311,10 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             //HintButton.Clicked += HintButton_Clicked;
 
             grid.Children.Add(Tick, grid.ColumnDefinitions.Count - 2, 1);
+            grid.Children.Add(Cross, grid.ColumnDefinitions.Count - 2, 1);
             grid.Children.Add(RetryButton, 3, 2);
             grid.Children.Add(CoinImage, grid.ColumnDefinitions.Count - 2, 0);
+            //CoinImage.Layout(new Rectangle(grid.Width - 10, 10, 10, 10));
 
             CoinLabel = new Label
             {
@@ -320,24 +326,24 @@ namespace Zpr.Fer.Hr.Lumen.Pages
             };
             CoinLabel.GestureRecognizers.Add(hintTapGestureRecognizer);
             grid.Children.Add(CoinLabel, grid.ColumnDefinitions.Count - 2, 0);
+            CoinLabel.Layout(new Rectangle(grid.Width - 10, 10, 5, 5));
             Content = grid;
 
         }
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             if (sender is BoxView boxView)
             {
                 if (_image != null && _boxViewEmpty[boxView])
                 {
                     _image.TranslateTo(boxView.X - _image.X, boxView.Y - _image.Y);
-                    _image.Opacity = 1;
                     var oldBoxView = _boxViewForImage[_image];
                     _boxViewEmpty[oldBoxView] = true;
                     _boxViewForImage.Remove(_image);
                     _boxViewForImage.Add(_image, boxView);
                     _boxViewEmpty[boxView] = false;
-
+                    oldBoxView.Color = Color.LightYellow;
                     if (Helpers.Settings.GreenField == "True")
                     {
                         UpdateBoxViewColor(_image, boxView, oldBoxView);
@@ -352,8 +358,13 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 // if another letter was tapped before
                 if (_image != null)
                 {
-                    if (_image == image) return;
-                    _image.Opacity = 1;
+                    if (_image == image)
+                    {
+                        var box = _boxViewForImage[_image];
+                        box.Color = Color.LightYellow;
+                        _image = null;
+                        return;
+                    }
                     var box1 = _boxViewForImage[image];
                     var box2 = _boxViewForImage[_image];
                     _boxViewForImage.Remove(image);
@@ -362,7 +373,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                     _boxViewForImage.Add(_image, box1);
                     image.TranslateTo(box2.X - image.X, box2.Y - image.Y);
                     _image.TranslateTo(box1.X - _image.X, box1.Y - _image.Y);
-
+                    box2.Color = Color.LightYellow;
                     if (Helpers.Settings.GreenField == "True")
                     {
                         UpdateBoxViewColor(image, box2);
@@ -375,12 +386,91 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 {
                     _image = (Image)sender;
                     _image.HorizontalOptions = LayoutOptions.Fill;
-                    _image.Opacity = .6;
+                    var box = _boxViewForImage[_image];
+                    box.Color = Color.LightBlue;
                 }
                 //HintButton.Text = "Hint";
             }
 
-           
+            //while (_hintRunning) ;
+            if (_wordBoxViews.All(x => !_boxViewEmpty[x]))
+            {
+                var word = "";
+                for (var i = 0; i < _wordBoxViews.Count; i++)
+                {
+                    var box = _wordBoxViews[i];
+                    var image = _boxViewForImage.Where(x => box == x.Value).Select(x => x.Key).SingleOrDefault();
+                    if (image != null)
+                    {
+                        var imageSource = image.Source.ToString().Replace("File: ", "");
+                        var letter = _letters.Where(x => x.ImagePath == imageSource).Select(x => x.Name).FirstOrDefault();
+                        word += letter;
+                    }
+                }
+                if (word == Word.Name)
+                {
+                    foreach(var boxImage in _boxViewForImage)
+                    {
+                        boxImage.Key.IsEnabled = false;
+                    }
+                    foreach(var boxempty in _boxViewEmpty)
+                    {
+                        boxempty.Key.IsEnabled = false;
+                    }
+                    CoinImage.IsEnabled = false;
+                    CoinLabel.IsEnabled = false;
+                    Cross.IsVisible = false;
+                    if (Helpers.Settings.GreenField != "True")
+                    {
+                        foreach (var box in _wordBoxViews)
+                            box.Color = Color.Green;
+                    }
+                    Tick.IsVisible = true;
+                    //add coin
+                    var coin = Convert.ToInt32(Helpers.Settings.Coin);
+                    coin += Word.Difficulty + 2;
+                    CoinLabel.Text = coin.ToString();
+                    Helpers.Settings.Coin = coin.ToString();
+                    Helpers.Settings.CorrectGuesses++;
+                    //ConfirmButton.IsVisible = false;
+                    //RetryButton.IsVisible = false;
+                    //HintButton.IsVisible = false;
+
+                    await Task.Delay(2000);
+                    RetryButton_Clicked(sender, e);
+                }
+                else
+                {
+                    Tick.IsVisible = false;
+                    Helpers.Settings.FalseGuesses++;
+                    if (Helpers.Settings.GreenField != "True")
+                    {
+                        foreach (var box in _wordBoxViews)
+                            box.Color = Color.Red;
+                    }
+                    Cross.IsVisible = true;
+                }
+            }
+            else if (_wordBoxViews.Any(x => x.Color != Color.LightYellow))
+            {
+                Tick.IsVisible = false;
+                Cross.IsVisible = false;
+                foreach (var box in _wordBoxViews)
+                {
+                    if (_boxViewEmpty[box])
+                        box.Color = Color.LightYellow;
+                    else
+                    {
+                        var image = _boxViewForImage.Where(x => x.Value == box).Select(x => x.Key).Single();
+                        if (Helpers.Settings.GreenField == "True")
+                            UpdateBoxViewColor(image, box);
+                        else
+                            box.Color = Color.LightYellow;
+                    }
+                }
+            }
+            if (_image != null)
+                _boxViewForImage[_image].Color = Color.LightBlue;
         }
 
         private void UpdateBoxViewColor(Image image, BoxView boxView, BoxView oldBoxView = null)
@@ -499,16 +589,18 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                         var letter = _letters.Where(x => x.ImagePath == imageSource).FirstOrDefault();
                         if (letter.Name == correctLetter)
                         {
-                            for (var j = 0; j < 4; j++)
+                            _hintRunning = true;
+                            for (var j = 0; j < 3; j++)
                             {
                                 _wordBoxViews[i].Color = Color.LightBlue;
                                 imageBox.Value.Color = Color.LightBlue;
                                 await Task.Delay(600);
                                 _wordBoxViews[i].Color = Color.LightYellow;
                                 imageBox.Value.Color = Color.LightYellow;
-                                await Task.Delay(600);
+                                await Task.Delay(500);
                             }
                             isSucessfull = true;
+                            _hintRunning = false;
                             break;
                         }
                     }
@@ -551,6 +643,13 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 CoinLabel.Text = coin.ToString();
                 Helpers.Settings.Coin = coin.ToString();
             }
+            foreach(var box in _wordBoxViews)
+                if(Helpers.Settings.GreenField == "True")
+                {
+                    var image = _boxViewForImage.Where(x => x.Value == box).Select(x => x.Key).SingleOrDefault();
+                    if (image != null)
+                        UpdateBoxViewColor(image, box);
+                }
             //HintButton.IsEnabled = true;
             CoinImage.IsEnabled = true;
             CoinLabel.IsEnabled = true;
@@ -579,8 +678,8 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 gameFadeIn.Add(0, 1, new Animation(
                     a => image.Key.Opacity = a, 0, 1, Easing.SinIn));
             }
-            gameFadeIn.Add(0, 1, new Animation(
-                    a => Tick.Opacity = a, 0, 1, Easing.SinIn));
+            //gameFadeIn.Add(0, 1, new Animation(
+            //        a => Tick.Opacity = a, 0, 1, Easing.SinIn));
             gameFadeIn.Add(0, 1, new Animation(
                     a => RetryButton.Opacity = a, 0, 1, Easing.SinIn));
             //gameFadeIn.Add(0, 1, new Animation(
@@ -619,6 +718,7 @@ namespace Zpr.Fer.Hr.Lumen.Pages
                 CoinImage = null;
                 CoinLabel = null;
                 Tick = null;
+                Cross = null;
                 RetryButton = null;
                 Word = null;
                 _boxViewEmpty.Clear();

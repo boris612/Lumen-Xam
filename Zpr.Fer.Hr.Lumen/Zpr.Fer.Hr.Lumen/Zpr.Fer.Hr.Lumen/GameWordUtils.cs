@@ -113,7 +113,7 @@ namespace Zpr.Fer.Hr.Lumen
                     case 'N':
                         if (i + 1 < name.Length && name[i + 1] == 'J')
                         {
-                            letters.Add(_letters.Where(l => l.Name == "LJ").Single());
+                            letters.Add(_letters.Where(l => l.Name == name[i] + "J").Single());
                             i++;
                         }
                         else
